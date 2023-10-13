@@ -1,4 +1,4 @@
-import { classNames } from '@/shared';
+import { classNames, VtbLogo } from '@/shared';
 import styles from './navbar.module.scss';
 
 interface NavbarProps {
@@ -8,7 +8,14 @@ interface NavbarProps {
 const Navbar = (props: NavbarProps) => {
   const { className } = props;
 
-  return <div className={classNames(styles.Navbar, {}, [className])}></div>;
+  return (
+    <div className={classNames(styles.Navbar, {}, [className])}>
+      <img
+        src={VtbLogo}
+        alt={'logo'}
+      />
+    </div>
+  );
 };
 
 export { Navbar };

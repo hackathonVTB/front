@@ -21,10 +21,13 @@
     ]
   },
   "dependencies": {
+    "@react-spring/web": "^9.7.3",
+    "@use-gesture/react": "^10.3.0",
     "axios": "^1.5.1",
     "compose-function": "^3.0.3",
     "mobx": "^6.10.2",
     "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router": "^6.16.0",
