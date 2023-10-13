@@ -2,6 +2,7 @@ import { RMap, ROSM, RLayerVector, RFeature, RStyle } from 'rlayers';
 import { Point } from 'ol/geom';
 import { Extent } from 'ol/extent';
 import { fromLonLat, toLonLat } from 'ol/proj';
+import VtbIcon from '@/shared/assets/vtb-rounded-logo.svg';
 import styles from './index.module.scss';
 import useOfficeService from './services/useOfficeService';
 import { IShortBank } from '@/shared/interface/banks/IBanks';
@@ -36,9 +37,7 @@ const MapView = () => {
             geometry={new Point(fromLonLat([el.longitude, el.latitude]))}
           >
             <RStyle.RStyle>
-              <RStyle.RCircle radius={5}>
-                <RStyle.RFill color="blue" />
-              </RStyle.RCircle>
+              <RStyle.RIcon src={VtbIcon} />
             </RStyle.RStyle>
           </RFeature>
         ))}
