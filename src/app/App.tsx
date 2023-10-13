@@ -1,12 +1,11 @@
-import { withProviders } from './providers';
-import { Routing } from '@/pages';
+import AppRouter from './providers/router/ui/app-router.tsx';
 
 const App = () => {
   return (
     <div className="app">
-      <Routing />
+      <AppRouter />
     </div>
   );
 };
 
-export default withProviders(App);
+export default App;

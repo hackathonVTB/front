@@ -1,4 +1,4 @@
-import { classNames, VStack } from '@/shared';
+import { classNames } from '@/shared';
 import styles from './main-layout.module.scss';
 import { ReactNode } from 'react';
 
@@ -16,9 +16,9 @@ const MainLayout = (props: MainLayoutProps) => {
   return (
     <div className={classNames(styles.MainLayout, {}, [className])}>
       <div className={styles.navbar}>{navbar}</div>
-      <div className={styles.leftSidebar}>{leftSidebar}</div>
+      {leftSidebar && <div className={styles.leftSidebar}>{leftSidebar}</div>}
       <div className={styles.content}>{content}</div>
-      <div className={styles.drower}>{drower}</div>
+      {drower && <div className={styles.drower}>{drower}</div>}
     </div>
   );
 };
