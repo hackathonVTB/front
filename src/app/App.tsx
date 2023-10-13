@@ -3,7 +3,7 @@ import { Routing } from '@/pages';
 
 const App = () => {
   return (
-    <div className={'app'}>
+    <div className="app">
       <Routing />
     </div>
   );

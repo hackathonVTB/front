@@ -1,13 +1,7 @@
-import { MapView } from '@/shared/ui/map/map';
-import { OfficeList } from '@/entities';
+import MapView from '@/widgets/ui/map/map';
 
 const MapPage = () => {
-  return (
-    <>
-      <OfficeList></OfficeList>
-      <MapView />;
-    </>
-  );
+  return <MapView />;
 };
 
 export default MapPage;
