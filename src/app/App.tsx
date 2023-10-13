@@ -1,12 +1,12 @@
-import { Map } from '@/shared/ui/map/map.tsx';
+import { withProviders } from './providers';
+import { Routing } from '@/pages';
 
-function App() {
+const App = () => {
   return (
     <div className={'app'}>
-      VTB
-      <Map />
+      <Routing />
     </div>
   );
-}
+};
 
-export default App;
+export default withProviders(App);

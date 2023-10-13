@@ -1,25 +1,15 @@
-// import styles from './map.module.scss';
-import { useEffect } from 'react';
-import { useJsApiScript } from './use-js-api-script.ts';
-// import type { LngLat } from '@yandex/ymaps3-types';
+import { Map, YMaps } from '@pbe/react-yandex-maps';
 
-// interface MapProps {
-//
-// }
-
-const Map = () => {
-  const isScriptLoaded = useJsApiScript();
-
-  useEffect(() => {
-    console.log(isScriptLoaded);
-  }, [isScriptLoaded]);
-
+const MapView = () => {
   return (
-    <div
-      id="map"
-      style={{ width: '400px', height: '400px' }}
-    ></div>
+    <YMaps>
+      <Map
+        width={'100vw'}
+        height={'100vh'}
+        defaultState={{ center: [55.75, 37.57], zoom: 9 }}
+      />
+    </YMaps>
   );
 };
 
-export { Map };
+export { MapView };
