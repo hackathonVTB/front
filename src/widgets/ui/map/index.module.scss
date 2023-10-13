@@ -1,0 +1,26 @@
+.root {
+    position: relative;
+}
+
+.map {
+    width: 100vw;
+    height: 100vh;
+    
+    li {
+        display: none;
+    }
+
+}
+
+.feature {
+    background-color: white;
+    width: 200px;
+    border-radius: 10px;
+}
+
+.loader {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+}

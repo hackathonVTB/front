@@ -1,5 +1,12 @@
-function App() {
-  return <div className={'app'}>VTB</div>;
-}
+import { withProviders } from './providers';
+import { Routing } from '@/pages';
 
-export default App;
+const App = () => {
+  return (
+    <div className="app">
+      <Routing />
+    </div>
+  );
+};
+
+export default withProviders(App);
