@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port=3000",
     "build": "tsc && vite build",
     "prettier": "npx prettier --write **/*.{ts,tsx,json}",
     "lint:ts": "eslint '**/*.{ts,tsx}'",
