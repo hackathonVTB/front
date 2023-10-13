@@ -1,14 +1,16 @@
-import { RMap, ROSM, RLayerVector, RFeature, ROverlay } from 'rlayers';
+import { RMap, ROSM, RLayerVector, RFeature, RStyle } from 'rlayers';
 import { Point } from 'ol/geom';
+import { Extent } from 'ol/extent';
 import { fromLonLat, toLonLat } from 'ol/proj';
-import { SiPointy } from 'react-icons/si';
 import styles from './index.module.scss';
 import useOfficeService from './services/useOfficeService';
-import { IBank } from '@/shared/interface/banks/IBanks';
+import { IShortBank } from '@/shared/interface/banks/IBanks';
+import { useState } from 'react';
 
 const MapView = () => {
   const center = fromLonLat([37.61556, 55.75222]);
-  const { offices } = useOfficeService();
+  const [extent, setExtent] = useState<Extent>();
+  const { offices } = useOfficeService(extent || []);
   return (
     <RMap
       className={styles.map}
@@ -23,19 +25,21 @@ const MapView = () => {
           e.target.frameState_.extent[2],
           e.target.frameState_.extent[3],
         ]);
-        console.log([...onePart, ...secPart]);
+        setExtent([...onePart, ...secPart]);
       }}
     >
       <ROSM />
       <RLayerVector zIndex={10}>
-        {offices?.map((el: IBank) => (
+        {offices?.map((el: IShortBank) => (
           <RFeature
-            key={el.salePointName}
+            key={el.id}
             geometry={new Point(fromLonLat([el.longitude, el.latitude]))}
           >
-            <ROverlay>
-              <SiPointy />
-            </ROverlay>
+            <RStyle.RStyle>
+              <RStyle.RCircle radius={5}>
+                <RStyle.RFill color="blue" />
+              </RStyle.RCircle>
+            </RStyle.RStyle>
           </RFeature>
         ))}
       </RLayerVector>
