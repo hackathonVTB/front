@@ -1,4 +1,4 @@
-import { MapView } from '@/shared/ui/map/map';
+import MapView from '@/widgets/ui/map/map';
 
 const MapPage = () => {
   return <MapView />;
