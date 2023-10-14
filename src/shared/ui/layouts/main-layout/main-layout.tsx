@@ -10,6 +10,7 @@ interface MainLayoutProps {
   rightSidebar?: ReactNode;
   drower?: ReactNode;
   rightDownButton?: ReactNode;
+  toggleTypeService?: ReactNode;
 }
 
 const MainLayout = (props: MainLayoutProps) => {
@@ -21,6 +22,7 @@ const MainLayout = (props: MainLayoutProps) => {
     drower,
     rightSidebar,
     rightDownButton,
+    toggleTypeService,
   } = props;
 
   return (
@@ -34,6 +36,9 @@ const MainLayout = (props: MainLayoutProps) => {
       {drower && <div className={styles.drower}>{drower}</div>}
       {rightDownButton && (
         <div className={styles.rightDownButton}>{rightDownButton}</div>
+      )}
+      {toggleTypeService && (
+        <div className={styles.toggleTypeService}>{toggleTypeService}</div>
       )}
     </div>
   );

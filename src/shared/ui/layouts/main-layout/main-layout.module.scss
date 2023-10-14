@@ -33,3 +33,11 @@
   margin-right: 24px;
   margin-bottom: 24px;
 }
+
+.toggleTypeService {
+  display: grid;
+  justify-content: center;
+  width: 100vw;
+  top: var(--navbar-height);
+  position: absolute;
+}
