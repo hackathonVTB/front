@@ -7,7 +7,7 @@ const Menu = () => {
       <div className={styles.item}>
         <span className={styles.itemText}>
           <BsGeoAlt />
-          Близжайшие отделения
+          Ближайшие отделения
         </span>
       </div>
     </div>
