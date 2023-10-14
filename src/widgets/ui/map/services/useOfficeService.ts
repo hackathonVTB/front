@@ -8,7 +8,7 @@ const useOfficeService = (extent: Extent): { offices: IShortBank[] } => {
 
   useEffect(() => {
     (async () => {
-      if (extent) {
+      if (extent.length) {
         const input = {
           longitude_min: extent[0],
           latitude_min: extent[1],
