@@ -23,8 +23,9 @@ const MapView = observer(() => {
   const { atmStore } = useAtmStore();
 
   useEffect(() => {
-    atmStore.fetchAtms(extent || []).then((data) => console.log(data));
-  }, [atmStore]);
+    if (!extent) return;
+    atmStore.fetchAtms(extent).then((data) => console.log(data));
+  }, [atmStore, extent]);
 
   const onClose = () => {
     setIsOpen(false);
