@@ -9,12 +9,9 @@ interface IndexProps {
 
 const ServiceModal = observer((props: IndexProps) => {
   const { className } = props;
-  // const [showSecond, setShowSecond] = useState(false);
 
   return (
     <div className={classNames(styles.Index, {}, [className])}>
-      {/*{!showSecond && <First onToggleShowSecond={setShowSecond} />}*/}
-      {/*{showSecond && <Modal onToggleShowSecond={setShowSecond} />}*/}
       <Modal />
     </div>
   );

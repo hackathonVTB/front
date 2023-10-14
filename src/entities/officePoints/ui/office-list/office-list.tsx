@@ -1,6 +1,6 @@
 import { classNames } from '@/shared';
 import styles from './office-list.module.scss';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, toLonLat } from 'ol/proj';
 import { observer } from 'mobx-react-lite';
 import useSuitOffices from '@/shared/hooks/useSuitOffices';
 import VTBLogo from '@/shared/assets/vtb-rounded-logo.svg';
@@ -8,6 +8,7 @@ import { useLocalPointsStore } from '@/entities/officePoints/model/store/use-loc
 import { IOfficesSide } from '@/shared/interface/OfficesSideBar/IOfficesSide';
 import { configLoadStat } from '../module/configLoadStat';
 import { Loader } from '@/shared/ui/loader/loader.tsx';
+import { useLocalGeoStore } from '@/entities/map/model/store';
 
 interface OfficeListProps {
   className?: string;
@@ -16,7 +17,9 @@ interface OfficeListProps {
 const OfficeList = observer((props: OfficeListProps) => {
   const { className } = props;
   const { officesPointsStore, isOpenStore } = useLocalPointsStore();
-  const { isLoading } = useSuitOffices([37.61556, 55.75222]);
+  const { geoStore } = useLocalGeoStore();
+  const coord = toLonLat(geoStore.pos.getCoordinates());
+  const { isLoading } = useSuitOffices([coord[0], coord[1]]);
 
   const onClickItem = (office: IOfficesSide) => {
     officesPointsStore.setView({

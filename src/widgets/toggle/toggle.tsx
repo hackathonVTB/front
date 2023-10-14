@@ -29,7 +29,6 @@ const Toggle = observer((props: ToggleProps) => {
             },
             [],
           )}
-          // isActive={tooglStore.toogle === Toogle.Office}
           onClick={() => tooglStore.setToogle(Toogle.Office)}
           view={'outline'}
           width={140}

@@ -3,7 +3,10 @@ import './styles/index.scss';
 
 const App = () => {
   return (
-    <div className="app">
+    <div
+      id="app"
+      className="app"
+    >
       <AppRouter />
     </div>
   );

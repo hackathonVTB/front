@@ -1,7 +1,7 @@
 import { createStoresContext } from '@/shared';
-import { serviceSelecterStore } from './service-selecter.ts';
+import { serviceSelecterStore, objectForm } from './service-selecter.ts';
 
-const store = { serviceSelecterStore };
+const store = { serviceSelecterStore, objectForm };
 
 const useLocalStore = createStoresContext(store);
 
