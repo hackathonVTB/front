@@ -6,6 +6,7 @@ import { isMobile } from 'react-device-detect';
 import { Sidebar } from '@/widgets/sidebar';
 import { useState } from 'react';
 import SideBarOffice from '@/widgets/sideBarOffice';
+import { ServiceModal } from '@/entities/service';
 
 const Map = () => {
   const [rightSidebarIsOpen, setRightSidebarIsOpen] = useState(false);
@@ -16,7 +17,7 @@ const Map = () => {
       closeIcon={true}
       onCloseClick={() => setRightSidebarIsOpen(false)}
     >
-      Queue
+      <ServiceModal />
     </Sidebar>
   ) : undefined;
 
