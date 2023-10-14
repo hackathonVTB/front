@@ -55,6 +55,12 @@ const OfficeList = observer((props: OfficeListProps) => {
                 <div className={styles.chips}>{loaded_status}</div>
               </span>
             </div>
+            <div>
+              <span className={styles.loader}>
+                Растояние до отделения:
+                <div className={styles.chips}>{office.distance} км</div>
+              </span>
+            </div>
           </div>
         );
       })}
