@@ -17,7 +17,7 @@
     padding: 5px 10px;
     background-color: var(--chips-color);
     border-radius: 5px;
-  
+
   }
 
   &:hover {
@@ -26,7 +26,7 @@
     .chips {
       background-color: white;
     }
-   
+
   }
 
   &:active {
@@ -35,13 +35,13 @@
      .chips {
       background-color: white;
     }
-    
+
   }
 
   &:first-child {
     border-radius: 25px 0;
   }
- 
+
 
 }
 

@@ -7,6 +7,7 @@ import VTBLogo from '@/shared/assets/vtb-rounded-logo.svg';
 import { useLocalPointsStore } from '@/entities/officePoints/model/store/use-local-stores';
 import { IOfficesSide } from '@/shared/interface/OfficesSideBar/IOfficesSide';
 import { configLoadStat } from '../module/configLoadStat';
+import { Loader } from '@/shared/ui/loader/loader.tsx';
 
 interface OfficeListProps {
   className?: string;
@@ -29,9 +30,7 @@ const OfficeList = observer((props: OfficeListProps) => {
     );
   };
 
-  if (isLoading) {
-    <div>...isLoading</div>;
-  }
+  if (isLoading) return <Loader />;
 
   return (
     <div className={classNames(styles.root, {}, [className])}>
