@@ -1,4 +1,4 @@
-import Button from '@/shared/ui/button';
+import Button from '@/shared/ui/button/button.tsx';
 import styles from './index.module.scss';
 import { observer } from 'mobx-react-lite';
 import { useLocalPointsStore } from '@/entities/officePoints/model';

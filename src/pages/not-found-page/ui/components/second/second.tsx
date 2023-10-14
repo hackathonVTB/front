@@ -11,7 +11,7 @@ interface SecondProps {
 
 const Second = observer((props: SecondProps) => {
   const { className, onToggleShowSecond } = props;
-  const [categore, setCategore] = useState('');
+  const [categoreId, setCategoreId] = useState(0);
   const { serviceSelecterStore } = useLocalStore();
 
   useEffect(() => {
@@ -20,8 +20,8 @@ const Second = observer((props: SecondProps) => {
 
   useEffect(() => {
     if (serviceSelecterStore.categories.length === 0) return;
-    serviceSelecterStore.fetchSubcategories();
-  }, [categore]);
+    serviceSelecterStore.fetchSubcategories(categoreId);
+  }, [categoreId]);
 
   if (serviceSelecterStore.categoriesIsLoading) {
     return <div>Loading</div>;
@@ -29,15 +29,29 @@ const Second = observer((props: SecondProps) => {
 
   return (
     <div className={classNames(styles.Second, {}, [className])}>
-      <select onChange={(e) => setCategore(e.target.value)}>
+      <select
+        onChange={(e) => {
+          setCategoreId(+e.target.value);
+        }}
+      >
         {serviceSelecterStore.categories.map((categore) => (
-          <option key={categore}>{categore}</option>
+          <option
+            key={categore.id}
+            value={categore.id}
+          >
+            {categore.name}
+          </option>
         ))}
       </select>
-      {!!categore && (
+      {!!categoreId && (
         <select onChange={(e) => console.log(e.target.value)}>
           {serviceSelecterStore.subcategories.map((subcategorie) => (
-            <option key={subcategorie}>{subcategorie}</option>
+            <option
+              key={subcategorie.id}
+              value={subcategorie.id}
+            >
+              {subcategorie.name}
+            </option>
           ))}
         </select>
       )}

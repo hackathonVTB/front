@@ -1,10 +1,14 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { ServiceSelecterService } from '@/pages/not-found-page/model/services/api/api.ts';
+import {
+  Category,
+  Subcategories,
+} from '@/pages/not-found-page/model/types/types.ts';
 
 class ServiceSelecterStore {
-  categories: string[] = [];
-  subcategories: string[] = [];
+  categories: Category[] = [];
+  subcategories: Subcategories[] = [];
   categoriesIsLoading = false;
   subcategoriesIsLoading = false;
   constructor() {
@@ -15,10 +19,11 @@ class ServiceSelecterStore {
     this.categoriesIsLoading = true;
 
     try {
-      const data = await ServiceSelecterService.getAllCategories();
+      const { message: categories } =
+        await ServiceSelecterService.getAllCategories();
 
       runInAction(() => {
-        this.categories = data.message;
+        this.categories = categories;
       });
     } catch (error) {
       console.error(error);
@@ -29,14 +34,15 @@ class ServiceSelecterStore {
     }
   }
 
-  async fetchSubcategories() {
+  async fetchSubcategories(categoryId: number) {
     this.subcategoriesIsLoading = true;
 
     try {
-      const data = await ServiceSelecterService.getAllSubcategories();
+      const { message: subcategories } =
+        await ServiceSelecterService.getAllSubcategories(categoryId);
 
       runInAction(() => {
-        this.subcategories = data.message;
+        this.subcategories = subcategories;
       });
     } catch (error) {
       console.error(error);

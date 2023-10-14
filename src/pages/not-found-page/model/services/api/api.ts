@@ -1,7 +1,16 @@
 import { apiClient } from '@/shared/services/clients/clients.ts';
+import {
+  Category,
+  Subcategories,
+} from '@/pages/not-found-page/model/types/types.ts';
 
 interface CategoryGetProps {
-  message: string[];
+  message: Category[];
+  status: string;
+}
+
+interface SubcategoriesGetProps {
+  message: Subcategories[];
   status: string;
 }
 
@@ -10,8 +19,12 @@ class ServiceSelecterService {
     return apiClient.get<CategoryGetProps>('/categories');
   }
 
-  static getAllSubcategories() {
-    return apiClient.get<CategoryGetProps>(`/categories/1/subcategories`);
+  static getAllSubcategories(categoryId: number) {
+    return apiClient.get<SubcategoriesGetProps>(`/subcategories`, {
+      params: {
+        category_id: categoryId,
+      },
+    });
   }
 }
 
