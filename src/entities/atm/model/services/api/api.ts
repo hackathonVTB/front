@@ -9,8 +9,13 @@ interface OfficesServiceGetProps {
 
 class AtmsService {
   static getAllOffices(input: Extent) {
-    return apiClient.get<OfficesServiceGetProps>('/atms', {
-      params: input,
+    return apiClient.get<OfficesServiceGetProps>('/atms-for-maps', {
+      params: {
+        longitude_min: input[0],
+        latitude_min: input[1],
+        longitude_max: input[2],
+        latitude_max: input[3],
+      },
     });
   }
 }
