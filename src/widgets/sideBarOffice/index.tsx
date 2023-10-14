@@ -7,19 +7,28 @@ import { useLocalStore } from '@/entities/service/model';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
-import Button from '@/shared/ui/button/button';
+// import Button from '@/shared/ui/button/button';
+import { NotificationModal } from '@/features/notification-modal/notification-modal.tsx';
 dayjs.locale('ru');
 
 const SideBarOffice = observer(() => {
   const { officeInfoStore } = useLocalOfficeInfoStore();
   const { isOpenStore } = useLocalPointsStore();
   const { serviceSelecterStore, objectForm } = useLocalStore();
-  const [phone, setPhone] = useState<string>();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [phone, setPhone] = useState<string>();
 
   const onClick = (date: string) => {
     objectForm.setDays(date);
     serviceSelecterStore.fethcTimecZone(officeInfoStore.office?.id || 0, date);
   };
+
+  useEffect(() => {
+    setIsModalVisible(
+      !!serviceSelecterStore.reservation &&
+        !!serviceSelecterStore.availableOffices,
+    );
+  }, [serviceSelecterStore.availableOffices, serviceSelecterStore.reservation]);
 
   const onSubmit = (time: string) => {
     const item = {
@@ -41,35 +50,30 @@ const SideBarOffice = observer(() => {
     };
   }, [officeInfoStore.office]);
 
-  if (
-    (serviceSelecterStore.reservation, serviceSelecterStore).availableOffices
-  ) {
-    return (
-      <div className="rootFoorm">
-        <div className={styles.headerText}>
-          {officeInfoStore.office?.address}
-        </div>
-        <span>Получать напоминалки?</span>
-        <input
-          value={phone}
-          placeholder="+7 *** *** ** **"
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <Button
-          onClick={() => {
-            if (phone?.length === 11) {
-              serviceSelecterStore.addReservationNitofy({
-                reservation_id: serviceSelecterStore.reservation || 0,
-                phone_number: phone,
-              });
-            }
-          }}
-        >
-          Отправить
-        </Button>
-      </div>
-    );
-  }
+  // const component = (
+  //   <div className="rootFoorm">
+  //     <div className={styles.headerText}>{officeInfoStore.office?.address}</div>
+  //     <span>Вы записались</span>
+  //     <span>Получать напоминание?</span>
+  //     <input
+  //       value={phone}
+  //       placeholder="+7 *** *** ** **"
+  //       onChange={(e) => setPhone(e.target.value)}
+  //     />
+  //     <Button
+  //       onClick={() => {
+  //         if (phone?.length === 11) {
+  //           serviceSelecterStore.addReservationNitofy({
+  //             reservation_id: serviceSelecterStore.reservation || 0,
+  //             phone_number: phone,
+  //           });
+  //         }
+  //       }}
+  //     >
+  //       Отправить
+  //     </Button>
+  //   </div>
+  // );
 
   return (
     <div className={styles.root}>
@@ -108,11 +112,23 @@ const SideBarOffice = observer(() => {
                     </div>
                   ))}
                 </div>
+                {/*{serviceSelecterStore.reservation &&*/}
+                {/*serviceSelecterStore.availableOffices*/}
+                {/*  ? component*/}
+                {/*  : undefined}*/}
               </div>
             )}
           </div>
+          {/*{serviceSelecterStore.reservation &&*/}
+          {/*serviceSelecterStore.availableOffices*/}
+          {/*  ? component*/}
+          {/*  : undefined}*/}
         </div>
       )}
+      <NotificationModal
+        isOpen={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+      />
     </div>
   );
 });

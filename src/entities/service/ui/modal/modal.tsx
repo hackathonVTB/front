@@ -77,14 +77,16 @@ const Modal = observer((props: SecondProps) => {
           </select>
         )}
       <VStack
+        style={{ marginLeft: '8px', marginTop: '8px', paddingBottom: '8px' }}
         gap={'8'}
         maxWidth
         align={'start'}
       >
         {serviceSelecterStore.services.map((service) => (
           <Button
+            width={320}
+            height={40}
             onClick={() => {
-              console.log(service.name);
               objectForm.setServices(service);
               const coord = toLonLat(geoStore.pos.getCoordinates());
               serviceSelecterStore
@@ -101,7 +103,7 @@ const Modal = observer((props: SecondProps) => {
             }}
             key={service.id}
           >
-            {service.name}
+            <HStack justify={'start'}>{service.name}</HStack>
           </Button>
         ))}
       </VStack>
