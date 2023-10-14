@@ -8,7 +8,7 @@ import useInfoAboutOffices from '@/shared/hooks/useInfoAboutOffices';
 import { useLocalOfficeInfoStore } from '@/entities/officeInfo/model/store';
 import { useLocalGeoStore } from '../../model/store';
 import { useEffect } from 'react';
-import { buildRoute } from '@/widgets/ui/map/utils/utils';
+import { buildRoute } from '../../model/utils/utils';
 
 const CardPopover = observer(({ close }: { close?: () => void }) => {
   const { isOpenStore } = useLocalPointsStore();
@@ -21,8 +21,20 @@ const CardPopover = observer(({ close }: { close?: () => void }) => {
   };
 
   useEffect(() => {
+    if (navigator.geolocation && geoStore.geoSearch) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        geoStore.setGeoPos(new Point(fromLonLat([lng, lat])), undefined);
+      });
+    } else {
+      console.log('Geolocation is not supported by this browser.');
+    }
+  }, [navigator.geolocation, geoStore.geoSearch]);
+
+  useEffect(() => {
     (async () => {
-      if (geoStore.geoSearch && geoStore.pos && isOpenStore.cardsClick) {
+      if (isOpenStore.cardsClick && geoStore.geoSearch) {
         const data = await buildRoute(
           geoStore.pos,
           new Point(
@@ -33,9 +45,10 @@ const CardPopover = observer(({ close }: { close?: () => void }) => {
           ),
         );
         geoStore.setGeoRoute(data);
+        geoStore.setGeoSearch(false);
       }
     })();
-  }, [geoStore.geoSearch, geoStore.pos]);
+  }, [geoStore.pos]);
 
   if (isLoading) {
     return <div className={styles.root}>...Loading</div>;
