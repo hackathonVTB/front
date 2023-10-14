@@ -1,3 +1,9 @@
+.root {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap:  50px;
+}
+
 .headerText {
     font: var(--font-m-demi)
 }

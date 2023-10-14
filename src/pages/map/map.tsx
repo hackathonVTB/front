@@ -5,7 +5,7 @@ import { Drawer, QueueIcon } from '@/shared';
 import { isMobile } from 'react-device-detect';
 import { Sidebar } from '@/widgets/sidebar';
 import { useState } from 'react';
-import { OfficeList } from '@/entities';
+import SideBarOffice from '@/widgets/sideBarOffice';
 
 const Map = () => {
   const [rightSidebarIsOpen, setRightSidebarIsOpen] = useState(false);
@@ -27,7 +27,7 @@ const Map = () => {
       leftSidebar={
         !isMobile ? (
           <Sidebar>
-            <OfficeList />
+            <SideBarOffice />
           </Sidebar>
         ) : undefined
       }
