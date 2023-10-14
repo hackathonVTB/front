@@ -212,6 +212,19 @@ class ServiceSelecterStore {
       });
     }
   }
+
+  async addReservationNitofy(input: {
+    reservation_id: number;
+    phone_number: string;
+  }) {
+    try {
+      await ServiceSelecterService.addResevationNotify(input);
+    } finally {
+      runInAction(() => {
+        this.reservationIsLoading = false;
+      });
+    }
+  }
 }
 
 const serviceSelecterStore = new ServiceSelecterStore();
