@@ -1,23 +1,19 @@
 import { RMap, ROSM, RLayerVector } from 'rlayers';
 import { fromLonLat } from 'ol/proj';
 import styles from './index.module.scss';
-import PointBank from './componets/PointBank';
-import { createExtent } from './utils/utils';
-import { Popover } from '../popover';
-import CardPopover from './componets/CardPopover';
-import useAtmService from '@/entities/office/model/services/use-atm-service.ts';
-import { useEffect, useState } from 'react';
+
+import { useEffect } from 'react';
 import { createExtent } from '@/entities/map/model/utils/utils.ts';
 import { Popover } from '../../entities/map/ui/popover';
 import CardPopover from '../../entities/map/ui/card-popover';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
-import { useLocalPointsStore } from '@/entities/officePoints/model';
-import { observer } from 'mobx-react-lite';
+
 import { IOfficesSide } from '@/shared/interface/OfficesSideBar/IOfficesSide';
-import { IShortBank } from '@/entities/office/model/types/IBanks.ts';
+
 import PointBank from '@/entities/map/ui/point-bank';
 import { observer } from 'mobx-react-lite';
 import { useLocalStore as useAtmStore } from '@/entities/atm/model/store';
+import { useLocalPointsStore } from '@/entities/officePoints/model';
 
 const MapView = observer(() => {
   const center = fromLonLat([37.61556, 55.75222]);

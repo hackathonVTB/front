@@ -1,4 +1,3 @@
-import { IShortBank } from '@/shared/interface/banks/IBanks';
 import { Extent } from 'ol/extent';
 import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
@@ -56,4 +55,6 @@ const officesPointsStore = new OfficesPointsStore();
 const extentStore = new ExtentStore();
 const isOpenStore = new isOpenPopoverStore();
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export { officesPointsStore, extentStore, isOpenStore };
