@@ -10,6 +10,7 @@ import { useTogleLocalStore } from '@/entities/toggle/module';
 import { Toogle } from '@/entities/toggle/module/types/ITogle';
 import SideBarAtm from '@/widgets/sideBarAtm';
 import { observer } from 'mobx-react-lite';
+import { ServiceModal } from '@/entities/service';
 
 const Map = observer(() => {
   const [rightSidebarIsOpen, setRightSidebarIsOpen] = useState(false);
@@ -20,7 +21,7 @@ const Map = observer(() => {
       closeIcon={true}
       onCloseClick={() => setRightSidebarIsOpen(false)}
     >
-      Queue
+      <ServiceModal />
     </Sidebar>
   ) : undefined;
 

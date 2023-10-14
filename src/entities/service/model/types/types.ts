@@ -8,3 +8,11 @@ export interface Subcategories {
   name: string;
   category_id: number;
 }
+
+export type CategorySelect =
+  | 'Кредиты'
+  | 'Карты'
+  | 'Ипотека'
+  | 'Вклады и счета'
+  | 'Инвестиции'
+  | 'Страхование';

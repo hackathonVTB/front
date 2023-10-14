@@ -1,16 +1,16 @@
-import { classNames } from '@/shared';
-import styles from './second.module.scss';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { classNames, HStack } from '@/shared';
+import styles from './modal.module.scss';
+import { useEffect, useState } from 'react';
 import { useLocalStore } from '../../model/store/use-local-stores.ts';
 import { observer } from 'mobx-react-lite';
+import { Loader } from '@/shared/ui/loader/loader.tsx';
 
 interface SecondProps {
   className?: string;
-  onToggleShowSecond: Dispatch<SetStateAction<boolean>>;
 }
 
-const Second = observer((props: SecondProps) => {
-  const { className, onToggleShowSecond } = props;
+const Modal = observer((props: SecondProps) => {
+  const { className } = props;
   const [categoreId, setCategoreId] = useState(0);
   const { serviceSelecterStore } = useLocalStore();
 
@@ -23,19 +23,34 @@ const Second = observer((props: SecondProps) => {
     serviceSelecterStore.fetchSubcategories(categoreId);
   }, [categoreId]);
 
-  if (serviceSelecterStore.categoriesIsLoading) {
-    return <div>Loading</div>;
+  if (
+    serviceSelecterStore.categoriesIsLoading ||
+    serviceSelecterStore.subcategoriesIsLoading
+  ) {
+    return (
+      <HStack
+        className={classNames(styles.Second, {}, [className])}
+        maxWidth
+        maxHeight
+        align={'center'}
+        justify={'center'}
+      >
+        <Loader />
+      </HStack>
+    );
   }
 
   return (
     <div className={classNames(styles.Second, {}, [className])}>
       <select
+        className={styles.select}
         onChange={(e) => {
           setCategoreId(+e.target.value);
         }}
       >
         {serviceSelecterStore.categories.map((categore) => (
           <option
+            className={styles.option}
             key={categore.id}
             value={categore.id}
           >
@@ -44,7 +59,10 @@ const Second = observer((props: SecondProps) => {
         ))}
       </select>
       {!!categoreId && (
-        <select onChange={(e) => console.log(e.target.value)}>
+        <select
+          className={styles.select}
+          onChange={(e) => console.log(e.target.value)}
+        >
           {serviceSelecterStore.subcategories.map((subcategorie) => (
             <option
               key={subcategorie.id}
@@ -55,9 +73,8 @@ const Second = observer((props: SecondProps) => {
           ))}
         </select>
       )}
-      <button onClick={() => onToggleShowSecond(false)}>close</button>
     </div>
   );
 });
 
-export { Second };
+export { Modal };
