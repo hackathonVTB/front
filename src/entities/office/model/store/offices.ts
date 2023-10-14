@@ -1,17 +1,15 @@
+import { IOfficesSide } from '@/shared/interface/OfficesSideBar/IOfficesSide';
 import { makeAutoObservable } from 'mobx';
 
 class OfficesStore {
-  offices = [
-    {
-      id: '1',
-    },
-    {
-      id: '1',
-    },
-  ];
+  offices: IOfficesSide[] = [];
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setOffices(inp: IOfficesSide[]) {
+    this.offices = inp;
   }
 }
 

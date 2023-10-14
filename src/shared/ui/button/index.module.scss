@@ -1,0 +1,75 @@
+
+
+.root {
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+  padding: 12px 18px;
+  transition: all 0.3s;
+}
+
+.root_icon {
+  padding: 5px 15px;
+}
+
+.root_primary {
+  background: var(--cian);
+  color: #FFF;
+
+  &:disabled {
+    pointer-events: none;
+    background: var(--gray-text);
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      &:not(:disabled) {
+        background: var(--main-blue);
+
+        .icon_primary {
+          fill: var(--main-blue);
+        }
+      }
+    }
+  }
+
+  &:active {
+    &:not(:disabled) {
+      background: var(--main-blue);
+    }
+  }
+}
+
+.root_secondary {
+  background: var(--chips-color);
+  color: var(--cian);
+
+  &:disabled {
+    pointer-events: none;
+    background: var(--gray-dark);
+    color: #FFF;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      &:not(:disabled) {
+        background: var(--gray-text);
+      }
+    }
+  }
+
+  &:active {
+    &:not(:disabled) {
+      background: var(--gray-text);
+    }
+  }
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font: var(--font-m-demi);
+
+}
+

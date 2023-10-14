@@ -7,6 +7,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     path: getRouteMain(),
     element: <MapPage />,
   },
+
   // last
   [AppRoutes.NOT_FOUND]: {
     path: '*',

@@ -1,0 +1,21 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.listItem {
+  display: grid;
+  gap: 5px;
+ grid-template-columns: auto 1fr auto;
+}
+
+.wrapperText {
+  display: flex;
+  flex-direction: column;
+}
+
+.textList {
+  font: var(--font-m-demi)
+}
+

@@ -1,1 +1,1 @@
-export { OfficeList } from './ui';
+export { OfficeList } from '../officePoints/ui';

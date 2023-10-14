@@ -1,1 +1,1 @@
-export { useLocalStore } from './use-local-stores.ts';
+export { useLocalOfficeStore } from './use-local-stores.ts';
