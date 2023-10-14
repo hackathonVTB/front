@@ -4,15 +4,17 @@ import { useLocalOfficeInfoStore } from '@/entities/officeInfo/model/store';
 import { OfficeList } from '@/entities';
 import { useLocalPointsStore } from '@/entities/officePoints/model';
 import { useLocalStore } from '@/entities/service/model';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
+import Button from '@/shared/ui/button/button';
 dayjs.locale('ru');
 
 const SideBarOffice = observer(() => {
   const { officeInfoStore } = useLocalOfficeInfoStore();
   const { isOpenStore } = useLocalPointsStore();
   const { serviceSelecterStore, objectForm } = useLocalStore();
+  const [phone, setPhone] = useState<string>();
 
   const onClick = (date: string) => {
     objectForm.setDays(date);
@@ -38,6 +40,36 @@ const SideBarOffice = observer(() => {
       objectForm.setDays(null);
     };
   }, [officeInfoStore.office]);
+
+  if (
+    (serviceSelecterStore.reservation, serviceSelecterStore).availableOffices
+  ) {
+    return (
+      <div className="rootFoorm">
+        <div className={styles.headerText}>
+          {officeInfoStore.office?.address}
+        </div>
+        <span>Получать напоминалки?</span>
+        <input
+          value={phone}
+          placeholder="+7 *** *** ** **"
+          onChange={(e) => setPhone(e.target.value)}
+        />
+        <Button
+          onClick={() => {
+            if (phone?.length === 11) {
+              serviceSelecterStore.addReservationNitofy({
+                reservation_id: serviceSelecterStore.reservation || 0,
+                phone_number: phone,
+              });
+            }
+          }}
+        >
+          Отправить
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.root}>

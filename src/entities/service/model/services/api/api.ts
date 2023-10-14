@@ -98,6 +98,15 @@ class ServiceSelecterService {
       params: input,
     });
   }
+
+  static addResevationNotify(input: {
+    reservation_id: number;
+    phone_number: string;
+  }) {
+    return apiClient.get<Resevation>('/add-reservation-notify', {
+      params: input,
+    });
+  }
 }
 
 export { ServiceSelecterService };
