@@ -1,0 +1,35 @@
+:root {
+    --font-family-light: "VTB Group Light", sans-serif;
+    --font-family-cond-book: "VTB Group Cond Book", sans-serif;
+    --font-family-demi: "VTB Group Demi Bold", sans-serif;
+    --font-family-cond-bold: "VTB Group Cond Bold", sans-serif;
+    --font-family-extra-bold: "VTB Group Extra Bold", sans-serif;
+    --font-xs-size : 12px;
+    --font-xs-line: 20px;
+    --font-xs-light: var(--font-xs-size) / var(--font-xs-line) var(--font-family-light);
+    --font-xs-cond-book: var(--font-xs-size) / var(--font-xs-line) var(--font-family-cond-book);
+    --font-xs-demi: var(--font-xs-size) / var(--font-xs-line) var(--font-family-demi);
+    --font-xs-cond-bold: var(--font-xs-size) / var(--font-xs-line) var(--font-family-cond-bold);
+    --font-xs-extra-bold: var(--font-xs-size) / var(--font-xs-line) var(--font-family-extra-bold);
+    --font-m-size: 16px;
+    --font-m-line: 24px;
+    --font-m-light: var(--font-m-size) / var(--font-m-line) var(--font-family-light);
+    --font-m-cond-book: var(--font-m-size) / var(--font-m-line) var(--font-family-cond-book);
+    --font-m-demi: var(--font-m-size) / var(--font-m-line) var(--font-family-demi);
+    --font-m-cond-bold: var(--font-m-size) / var(--font-m-line) var(--font-family-cond-bold);
+    --font-m-extra-bold: var(--font-m-size) / var(--font-m-line) var(--font-family-extra-bold);
+    --font-l-size: 20px;
+    --font-l-line: 28px;
+    --font-l-light: var(--font-l-size) / var(--font-l-line) var(--font-family-light);
+    --font-l-cond-book: var(--font-l-size) / var(--font-l-line) var(--font-family-cond-book);
+    --font-l-demi: var(--font-l-size) / var(--font-l-line) var(--font-family-demi);
+    --font-l-cond-bold: var(--font-l-size) / var(--font-l-line) var(--font-family-cond-bold);
+    --font-l-extra-bold: var(--font-l-size) / var(--font-l-line) var(--font-family-extra-bold);
+    --font-xl-size: 24px;
+    --font-xl-line: 32px;
+    --font-xl-light: var(--font-xl-size) / var(--font-xl-line) var(--font-family-light);
+    --font-xl-cond-book: var(--font-xl-size) / var(--font-xl-line) var(--font-family-cond-book);
+    --font-xl-demi: var(--font-xl-size) / var(--font-xl-line) var(--font-family-demi);
+    --font-xl-cond-bold: var(--font-xl-size) / var(--font-xl-line) var(--font-family-cond-bold);
+    --font-xl-extra-bold: var(--font-xl-size) / var(--font-xl-line) var(--font-family-extra-bold);
+}

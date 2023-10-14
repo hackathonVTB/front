@@ -1,17 +1,21 @@
-import { Overlay, Portal, useAnimationLibs } from '@/shared';
+import { AnimationProvider, useAnimationLibs } from '@/shared';
 import styles from './index.module.scss';
+import { Coordinate } from 'ol/coordinate';
+import { Point } from 'ol/geom';
 import { ReactNode, memo, useCallback, useEffect } from 'react';
+import { RLayerVector, RFeature, ROverlay } from 'rlayers';
 
 interface PopoverProps {
-  children: ReactNode;
+  children: (close: () => void) => ReactNode;
   isOpen?: boolean;
   onClose?: () => void;
+  coords: Coordinate;
 }
-
-export const Popover = memo((props: PopoverProps) => {
+const height = 50;
+export const PopoverContent = memo((props: PopoverProps) => {
   const { Spring, Gesture } = useAnimationLibs();
-  const [{ y }, api] = Spring.useSpring(() => ({ y: 250 }));
-  const { isOpen, onClose, children } = props;
+  const [{ y }, api] = Spring.useSpring(() => ({ y: height, x: 390 }));
+  const { isOpen, children, onClose, coords } = props;
 
   const openPopover = useCallback(() => {
     api.start({ y: 0, immediate: false });
@@ -25,25 +29,16 @@ export const Popover = memo((props: PopoverProps) => {
 
   const close = (velocity = 0) => {
     api.start({
-      y: 250,
-      immediate: false,
+      y: height,
       config: { ...Spring.config.stiff, velocity },
       onResolve: onClose,
     });
   };
 
-  const bind = Gesture.useDrag(
-    ({
-      last,
-      velocity: [, vy],
-      direction: [, dy],
-      movement: [, my],
-      cancel,
-    }) => {
-      if (my < -70) cancel();
-
+  const bind = Gesture.usePinch(
+    ({ last, velocity: [, vy], direction: [, dy], movement: [, my] }) => {
       if (last) {
-        if (my > 250 * 0.5 || (vy > 0.5 && dy > 0)) {
+        if (my > height * 0.5 || (vy > 0.5 && dy > 0)) {
           close();
         } else {
           openPopover();
@@ -52,35 +47,51 @@ export const Popover = memo((props: PopoverProps) => {
         api.start({ y: my, immediate: true });
       }
     },
-    {
-      from: () => [0, y.get()],
-      filterTaps: true,
-      bounds: { top: 0 },
-      rubberband: true,
-    },
   );
 
   if (!isOpen) {
     return null;
   }
 
-  const display = y.to((py) => (py < 250 ? 'block' : 'none'));
+  const display = y.to((py) => (py < height ? 'block' : 'none'));
 
   return (
-    <Portal element={document.getElementById('app') ?? document.body}>
-      <div className={styles.root}>
-        <Overlay onClick={close} />
-        <Spring.a.div
-          style={{
-            display,
-            bottom: `calc(-100vh + ${250 - 100}px)`,
-            y,
-          }}
-          {...bind()}
+    <RLayerVector zIndex={5}>
+      <RFeature geometry={new Point(coords)}>
+        <ROverlay
+          offset={[-2.5, -15]}
+          positioning="bottom-center"
         >
-          {children}
-        </Spring.a.div>
-      </div>
-    </Portal>
+          <Spring.a.div
+            style={{
+              display,
+              bottom: `calc(-100vh + ${height - 100}px)`,
+              y,
+            }}
+            {...bind()}
+          >
+            <div className={styles.root}>{children(close)}</div>
+          </Spring.a.div>
+        </ROverlay>
+      </RFeature>
+    </RLayerVector>
   );
 });
+
+const PopoverAsync = (props: PopoverProps) => {
+  const { isLoaded } = useAnimationLibs();
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  return <PopoverContent {...props} />;
+};
+
+export const Popover = (props: PopoverProps) => {
+  return (
+    <AnimationProvider>
+      <PopoverAsync {...props} />
+    </AnimationProvider>
+  );
+};
