@@ -13,11 +13,16 @@ class ServiceSelecterStore {
   subcategories: Subcategories[] = [];
   availableOffices: AvailableOffices[] = [];
   services: Services[] = [];
+  days: string[] = [];
+  times: string[] = [];
 
   categoriesIsLoading = false;
   subcategoriesIsLoading = false;
   availableOfficesIsLoading = false;
   servicesIsLoading = false;
+  dayIsLoading = false;
+  timeIsLoading = false;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -102,6 +107,46 @@ class ServiceSelecterStore {
     } finally {
       runInAction(() => {
         this.availableOfficesIsLoading = false;
+      });
+    }
+  }
+
+  async fetchDaysVisit(id: number) {
+    this.dayIsLoading = true;
+
+    try {
+      const { message: days } =
+        await ServiceSelecterService.getAvilabilityDay(id);
+
+      runInAction(() => {
+        this.days = days;
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.dayIsLoading = false;
+      });
+    }
+  }
+
+  async fethcTimecZone(id: number, date: string) {
+    this.timeIsLoading = true;
+
+    try {
+      const { message: times } = await ServiceSelecterService.getTimeZone(
+        id,
+        date,
+      );
+
+      runInAction(() => {
+        this.times = times;
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.timeIsLoading = false;
       });
     }
   }

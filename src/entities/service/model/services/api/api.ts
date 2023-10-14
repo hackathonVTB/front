@@ -26,6 +26,11 @@ interface AvailableOfficesGetProps {
   status: string;
 }
 
+interface AvailableDays {
+  message: string[];
+  status: string;
+}
+
 class ServiceSelecterService {
   static getAllCategories() {
     return apiClient.get<CategoryGetProps>('/categories');
@@ -57,6 +62,23 @@ class ServiceSelecterService {
         service_id: serviceId,
         longitude,
         latitude,
+      },
+    });
+  }
+
+  static getAvilabilityDay(officeId: number) {
+    return apiClient.get<AvailableDays>('/get-days', {
+      params: {
+        office_id: officeId,
+      },
+    });
+  }
+
+  static getTimeZone(officeId: number, date: string) {
+    return apiClient.get<AvailableDays>('/get-time-slots', {
+      params: {
+        office_id: officeId,
+        reservation_date: date,
       },
     });
   }
