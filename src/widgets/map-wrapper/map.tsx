@@ -24,12 +24,8 @@ const MapView = observer(() => {
   return (
     <RMap
       className={styles.map}
-      view={
-        !officesPointsStore.offices
-          ? [officesPointsStore.view, officesPointsStore.setView]
-          : undefined
-      }
-      initial={{ center: center, zoom: 11 }}
+      view={[officesPointsStore.view, officesPointsStore.setView]}
+      initial={{ center: center, zoom: 17 }}
       noDefaultControls
       onMoveEnd={(e: MapBrowserEvent<UIEvent>) => {
         extentStore.setExtent(createExtent(e));
