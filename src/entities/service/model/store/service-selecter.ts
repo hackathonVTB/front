@@ -8,6 +8,43 @@ import {
   Subcategories,
 } from '@/entities/service/model/types/types.ts';
 
+class ObjectForm {
+  categories: Category | null = null;
+  subcategories: Subcategories | null = null;
+  availableOffices: AvailableOffices | null = null;
+  services: Services | null = null;
+  days: string | null = null;
+  times: string | null = null;
+
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  setCategories(category: Category) {
+    this.categories = category;
+  }
+
+  setSubCategories(subcat: Subcategories) {
+    this.subcategories = subcat;
+  }
+
+  setAvailableOffices(availableOffices: AvailableOffices) {
+    this.availableOffices = availableOffices;
+  }
+
+  setServices(service: Services) {
+    this.services = service;
+  }
+
+  setDays(days: string | null) {
+    this.days = days;
+  }
+
+  setTimes(time: string) {
+    this.times = time;
+  }
+}
+
 class ServiceSelecterStore {
   categories: Category[] = [];
   subcategories: Subcategories[] = [];
@@ -15,6 +52,7 @@ class ServiceSelecterStore {
   services: Services[] = [];
   days: string[] = [];
   times: string[] = [];
+  reservation: number = 0;
 
   categoriesIsLoading = false;
   subcategoriesIsLoading = false;
@@ -22,6 +60,7 @@ class ServiceSelecterStore {
   servicesIsLoading = false;
   dayIsLoading = false;
   timeIsLoading = false;
+  reservationIsLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -150,8 +189,32 @@ class ServiceSelecterStore {
       });
     }
   }
+
+  async addReservation(input: {
+    office_id: number;
+    reservation_date: string;
+    reservation_time: string;
+    service_id: number;
+  }) {
+    this.reservationIsLoading = true;
+    try {
+      const { message: reservation } =
+        await ServiceSelecterService.addResevation(input);
+
+      runInAction(() => {
+        this.reservation = reservation;
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.reservationIsLoading = false;
+      });
+    }
+  }
 }
 
 const serviceSelecterStore = new ServiceSelecterStore();
+const objectForm = new ObjectForm();
 
-export { serviceSelecterStore };
+export { serviceSelecterStore, objectForm };

@@ -4,7 +4,7 @@ import { useLocalOfficeInfoStore } from '@/entities/officeInfo/model/store';
 import { OfficeList } from '@/entities';
 import { useLocalPointsStore } from '@/entities/officePoints/model';
 import { useLocalStore } from '@/entities/service/model';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 dayjs.locale('ru');
@@ -12,12 +12,22 @@ dayjs.locale('ru');
 const SideBarOffice = observer(() => {
   const { officeInfoStore } = useLocalOfficeInfoStore();
   const { isOpenStore } = useLocalPointsStore();
-  const { serviceSelecterStore } = useLocalStore();
-  const [date, setDate] = useState<string | null>(null);
+  const { serviceSelecterStore, objectForm } = useLocalStore();
 
   const onClick = (date: string) => {
-    setDate(date);
+    objectForm.setDays(date);
     serviceSelecterStore.fethcTimecZone(officeInfoStore.office?.id || 0, date);
+  };
+
+  const onSubmit = (time: string) => {
+    const item = {
+      office_id: officeInfoStore.office?.id || 0,
+      reservation_date: objectForm.days || '',
+      reservation_time: time,
+      service_id: objectForm.services?.id || 0,
+    };
+
+    serviceSelecterStore.addReservation(item);
   };
 
   useEffect(() => {
@@ -25,7 +35,7 @@ const SideBarOffice = observer(() => {
       serviceSelecterStore.fetchDaysVisit(officeInfoStore.office?.id || 0);
     }
     return () => {
-      setDate(null);
+      objectForm.setDays(null);
     };
   }, [officeInfoStore.office]);
 
@@ -40,7 +50,7 @@ const SideBarOffice = observer(() => {
           {officeInfoStore.office?.address}
           <div className={styles.textTime}>Разместить во времени</div>
           <div className={styles.grid}>
-            {!date ? (
+            {!objectForm.days ? (
               serviceSelecterStore.days.map((day) => (
                 <div
                   key={day}
@@ -53,12 +63,13 @@ const SideBarOffice = observer(() => {
             ) : (
               <div>
                 <div className={styles.chips}>
-                  {dayjs(date).format('dd, DD.MM.YYYY')}
+                  {dayjs(objectForm.days).format('dd, DD.MM.YYYY')}
                 </div>
                 <div className={styles.gridTime}>
                   {serviceSelecterStore.times.map((time) => (
                     <div
                       key={time}
+                      onClick={() => onSubmit(time)}
                       className={styles.chips}
                     >
                       {time}
