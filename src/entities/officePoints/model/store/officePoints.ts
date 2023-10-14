@@ -1,4 +1,4 @@
-import { IShortBank } from '@/shared/interface/banks/IBanks';
+import { IShortBank } from '@/entities/map/model/types/IBanks.ts';
 import { Extent } from 'ol/extent';
 import { Coordinate } from 'ol/coordinate';
 import { makeAutoObservable } from 'mobx';

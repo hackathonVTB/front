@@ -2,7 +2,7 @@ import { RFeature, RStyle } from 'rlayers';
 import VtbIcon from '@/shared/assets/vtb-rounded-logo.svg';
 import { Point } from 'ol/geom';
 import { Coordinate } from 'ol/coordinate';
-import { IShortBank } from '@/shared/interface/banks/IBanks';
+import { IShortBank } from '@/entities/map/model/types/IBanks.ts';
 import { fromLonLat } from 'ol/proj';
 import { Dispatch } from 'react';
 

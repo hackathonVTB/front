@@ -3,21 +3,23 @@ import { Extent } from 'ol/extent';
 import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
 import styles from './index.module.scss';
-import useOfficeService from './services/useOfficeService';
-import { IShortBank } from '@/shared/interface/banks/IBanks';
+import useOfficeService from '@/entities/map/model/services/useOfficeService.ts';
 import { useState } from 'react';
-import PointBank from './componets/PointBank';
-import { createExtent } from './utils/utils';
-import { Popover } from '../popover';
-import CardPopover from './componets/CardPopover';
+import { createExtent } from '@/entities/map/model/utils/utils.ts';
+import { Popover } from '../../entities/map/ui/popover';
+import CardPopover from '../../entities/map/ui/card-popover';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { IShortBank } from '@/entities/map/model/types/IBanks.ts';
+import PointBank from '@/entities/map/ui/point-bank';
+import { observer } from 'mobx-react-lite';
 
-const MapView = () => {
+const MapView = observer(() => {
   const center = fromLonLat([37.61556, 55.75222]);
   const [extent, setExtent] = useState<Extent>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [coordsPopover, setCoordsPopover] = useState<Coordinate>([]);
   const { offices } = useOfficeService(extent || []);
+  console.log(offices);
 
   const onClose = () => {
     setIsOpen(false);
@@ -52,6 +54,6 @@ const MapView = () => {
       </RLayerVector>
     </RMap>
   );
-};
+});
 
 export default MapView;

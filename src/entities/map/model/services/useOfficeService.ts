@@ -1,7 +1,7 @@
-import { $api } from '@/shared/api/api';
 import { Extent } from 'ol/extent';
-import { IShortBank } from '@/shared/interface/banks/IBanks';
+import { IShortBank } from '@/entities/map/model/types/IBanks.ts';
 import { useEffect, useState } from 'react';
+import { OfficesService } from '@/entities/map/model/services/api/api.ts';
 
 const useOfficeService = (extent: Extent): { offices: IShortBank[] } => {
   const [offices, setOffice] = useState<IShortBank[]>([]);
@@ -15,8 +15,8 @@ const useOfficeService = (extent: Extent): { offices: IShortBank[] } => {
           longitude_max: extent[2],
           latitude_max: extent[3],
         };
-        const data = await $api.get('/offices-for-maps', { params: input });
-        if (data.data.message) setOffice(data.data.message);
+        const { message } = await OfficesService.getAllOffices(input);
+        setOffice(message);
       }
     })();
   }, [extent]);
