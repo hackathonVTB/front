@@ -7,18 +7,34 @@ interface MainLayoutProps {
   navbar: ReactNode;
   content: ReactNode;
   leftSidebar?: ReactNode;
+  rightSidebar?: ReactNode;
   drower?: ReactNode;
+  rightDownButton?: ReactNode;
 }
 
 const MainLayout = (props: MainLayoutProps) => {
-  const { className, navbar, leftSidebar, content, drower } = props;
+  const {
+    className,
+    navbar,
+    leftSidebar,
+    content,
+    drower,
+    rightSidebar,
+    rightDownButton,
+  } = props;
 
   return (
     <div className={classNames(styles.MainLayout, {}, [className])}>
       <div className={styles.navbar}>{navbar}</div>
       {leftSidebar && <div className={styles.leftSidebar}>{leftSidebar}</div>}
+      {rightSidebar && (
+        <div className={styles.rightSidebar}>{rightSidebar}</div>
+      )}
       <div className={styles.content}>{content}</div>
       {drower && <div className={styles.drower}>{drower}</div>}
+      {rightDownButton && (
+        <div className={styles.rightDownButton}>{rightDownButton}</div>
+      )}
     </div>
   );
 };

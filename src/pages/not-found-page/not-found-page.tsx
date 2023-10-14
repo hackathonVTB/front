@@ -1,5 +1,6 @@
 import { classNames } from '@/shared';
 import styles from './not-found-page.module.scss';
+import { ServiceModal } from '@/entities/service/service-modal.tsx';
 
 interface NotFoundPageProps {
   className?: string;
@@ -10,7 +11,7 @@ const NotFoundPage = (props: NotFoundPageProps) => {
 
   return (
     <div className={classNames(styles.NotFoundPage, {}, [className])}>
-      Not found
+      <ServiceModal />
     </div>
   );
 };

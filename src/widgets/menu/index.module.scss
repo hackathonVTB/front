@@ -1,0 +1,19 @@
+.root {
+    display: flex;
+    flex-direction:  column;
+    gap: 20px;
+}
+
+.item {
+    background-color: var(--chips-color);
+    padding: 5px 15px;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.itemText {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    font: var(--font-m-demi);
+}

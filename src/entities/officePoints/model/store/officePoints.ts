@@ -9,7 +9,7 @@ class OfficesPointsStore {
   offices: IOfficesSide[] = [];
   view: RView = {
     center: fromLonLat([37.61556, 55.75222]),
-    zoom: 11,
+    zoom: 13,
   };
 
   constructor() {
@@ -40,14 +40,20 @@ class ExtentStore {
 class isOpenPopoverStore {
   isOpen: boolean = false;
   coords: Coordinate = [];
+  cardsClick: IOfficesSide | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setIsOpen(isOpen: boolean, coordinate: Coordinate) {
+  setIsOpen(
+    isOpen: boolean,
+    coordinate: Coordinate,
+    cardsClick: IOfficesSide | null,
+  ) {
     this.isOpen = isOpen;
     this.coords = coordinate;
+    this.cardsClick = cardsClick;
   }
 }
 
@@ -55,6 +61,4 @@ const officesPointsStore = new OfficesPointsStore();
 const extentStore = new ExtentStore();
 const isOpenStore = new isOpenPopoverStore();
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export { officesPointsStore, extentStore, isOpenStore };

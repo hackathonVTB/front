@@ -13,3 +13,23 @@
   width: var(--sidebar-width);
   height: calc(100vh - var(--navbar-height) - 32px);
 }
+
+.rightSidebar {
+  right: 0;
+  position: absolute;
+  z-index: 10;
+  border-radius: 24px;
+  padding: 8px;
+  margin: 16px;
+  background: var(--background-color);
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--navbar-height) - 32px);
+}
+
+.rightDownButton {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 24px;
+  margin-bottom: 24px;
+}

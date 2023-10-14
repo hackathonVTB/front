@@ -1,12 +1,24 @@
 import MapView from '@/widgets/map-wrapper/map.tsx';
 import { MainLayout } from '@/shared/ui/layouts/main-layout/main-layout.tsx';
 import { Navbar } from '@/widgets';
-import { Drawer } from '@/shared';
+import { Drawer, QueueIcon } from '@/shared';
 import { isMobile } from 'react-device-detect';
 import { Sidebar } from '@/widgets/sidebar';
-import { OfficeList } from '@/entities';
+import { useState } from 'react';
+import SideBarOffice from '@/widgets/sideBarOffice';
 
 const Map = () => {
+  const [rightSidebarIsOpen, setRightSidebarIsOpen] = useState(false);
+
+  const rightSidebar = rightSidebarIsOpen ? (
+    <Sidebar
+      closeIcon={true}
+      onCloseClick={() => setRightSidebarIsOpen(false)}
+    >
+      Queue
+    </Sidebar>
+  ) : undefined;
+
   return (
     <MainLayout
       navbar={<Navbar />}
@@ -15,8 +27,18 @@ const Map = () => {
       leftSidebar={
         !isMobile ? (
           <Sidebar>
-            <OfficeList />
+            <SideBarOffice />
           </Sidebar>
+        ) : undefined
+      }
+      rightSidebar={!isMobile ? rightSidebar : undefined}
+      rightDownButton={
+        !isMobile ? (
+          <img
+            src={QueueIcon}
+            alt={'QueueIcon'}
+            onClick={() => setRightSidebarIsOpen(true)}
+          />
         ) : undefined
       }
     />
