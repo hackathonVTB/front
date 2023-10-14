@@ -69,3 +69,42 @@
   border: 1px solid var(--cian);
 }
 
+.root_toggleButton {
+  border-radius: 60px;
+  background: var(--cian);
+  color: #FFF;
+
+  @media (any-hover: hover) {
+    &:hover {
+      &:not(:disabled) {
+        background: var(--cian-hovered);
+      }
+    }
+  }
+
+  &:active {
+    &:not(:disabled) {
+      background: var(--cian-hovered);
+    }
+  }
+}
+
+.active {
+  background: var(--background-color);
+  color: var(--cian);
+
+  @media (any-hover: hover) {
+    &:hover {
+      &:not(:disabled) {
+        background:  var(--background-color);
+      }
+    }
+  }
+
+  &:active {
+    &:not(:disabled) {
+      background: var(--background-color);
+    }
+  }
+}
+

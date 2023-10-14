@@ -11,11 +11,17 @@ import PointBank from '@/entities/map/ui/point-bank';
 import { observer } from 'mobx-react-lite';
 import { useLocalPointsStore } from '@/entities/officePoints/model';
 import { geoStore } from '@/entities/map/model/store/geoObj';
+import { useTogleLocalStore } from '@/entities/toggle/module';
+import { Toogle } from '@/entities/toggle/module/types/ITogle';
+import { useLocalAtmStore } from '@/entities/atm/model/store';
+import PointAtm from '@/entities/map/ui/point-atm';
 
 const MapView = observer(() => {
   const center = fromLonLat([37.61556, 55.75222]);
   const { extentStore, isOpenStore, officesPointsStore } =
     useLocalPointsStore();
+  const { atmStore } = useLocalAtmStore();
+  const { tooglStore } = useTogleLocalStore();
 
   const onClose = () => {
     isOpenStore.setIsOpen(false, [], null);
@@ -32,11 +38,18 @@ const MapView = observer(() => {
       }}
     >
       <ROSM />
-      <RLayerVector zIndex={10}>
-        {officesPointsStore.offices?.map((bank: IOfficesSide) => (
-          <PointBank bank={bank} />
-        ))}
-      </RLayerVector>
+      {tooglStore.toogle === Toogle.Office ? (
+        <RLayerVector zIndex={10}>
+          {officesPointsStore.offices?.map((bank: IOfficesSide) => (
+            <PointBank bank={bank} />
+          ))}
+        </RLayerVector>
+      ) : (
+        <RLayerVector zIndex={10}>
+          {atmStore.atms?.map((atm) => <PointAtm atm={atm} />)}
+        </RLayerVector>
+      )}
+
       <RLayerVector zIndex={5}>
         <Popover
           isOpen={isOpenStore.isOpen}
