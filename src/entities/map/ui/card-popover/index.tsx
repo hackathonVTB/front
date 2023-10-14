@@ -1,14 +1,41 @@
 import Button from '@/shared/ui/button';
 import styles from './index.module.scss';
+import { Point } from 'ol/geom';
+import { fromLonLat } from 'ol/proj';
 import { observer } from 'mobx-react-lite';
 import { useLocalPointsStore } from '@/entities/officePoints/model';
 import useInfoAboutOffices from '@/shared/hooks/useInfoAboutOffices';
 import { useLocalOfficeInfoStore } from '@/entities/officeInfo/model/store';
+import { useLocalGeoStore } from '../../model/store';
+import { useEffect } from 'react';
+import { buildRoute } from '@/widgets/ui/map/utils/utils';
 
 const CardPopover = observer(({ close }: { close?: () => void }) => {
   const { isOpenStore } = useLocalPointsStore();
   const { officeInfoStore } = useLocalOfficeInfoStore();
+  const { geoStore } = useLocalGeoStore();
   const { isLoading } = useInfoAboutOffices(isOpenStore.cardsClick);
+
+  const onCheckRoad = () => {
+    geoStore.setGeoSearch(true);
+  };
+
+  useEffect(() => {
+    (async () => {
+      if (geoStore.geoSearch && geoStore.pos && isOpenStore.cardsClick) {
+        const data = await buildRoute(
+          geoStore.pos,
+          new Point(
+            fromLonLat([
+              isOpenStore.cardsClick.longitude,
+              isOpenStore.cardsClick.latitude,
+            ]),
+          ),
+        );
+        geoStore.setGeoRoute(data);
+      }
+    })();
+  }, [geoStore.geoSearch, geoStore.pos]);
 
   if (isLoading) {
     return <div className={styles.root}>...Loading</div>;
@@ -51,7 +78,12 @@ const CardPopover = observer(({ close }: { close?: () => void }) => {
         </div>
       </div>
       <div className={styles.wrapperBtns}>
-        <Button view="primary">Маршрут</Button>
+        <Button
+          view="primary"
+          onClick={onCheckRoad}
+        >
+          Маршрут
+        </Button>
       </div>
     </div>
   );

@@ -38,6 +38,7 @@ export const buildRoute = async (start: Point, finish: Point) => {
     'EPSG:3857',
     'EPSG:4326',
   );
+  console.log(startCoords, finishCoords);
 
   const URL =
     'https://router.project-osrm.org/route/v1/driving/' +

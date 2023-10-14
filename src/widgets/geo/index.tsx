@@ -1,37 +1,30 @@
 import { Point, Geometry, Polygon } from 'ol/geom';
 import { Geolocation as OLGeoLoc } from 'ol';
 import { Coordinate } from 'ol/coordinate';
-import 'ol/ol.css';
-
 import { RLayerVector, RFeature, RGeolocation, RStyle, useOL } from 'rlayers';
 import { useLocalGeoStore } from '@/entities/map/model/store';
-import { useCallback } from 'react';
+import { observer } from 'mobx-react-lite';
 
-const Geoloc = () => {
+const Geoloc = observer(() => {
   const { geoStore } = useLocalGeoStore();
-
   const { map } = useOL();
-
   return (
-    <>
+    <RLayerVector>
       <RGeolocation
         tracking={true}
         trackingOptions={{ enableHighAccuracy: true }}
-        onChange={useCallback(
-          (e: any) => {
-            const geoloc = e.target as OLGeoLoc;
-            geoStore.setGeoPos(
-              new Point(geoloc.getPosition() as Coordinate),
-              geoloc.getAccuracyGeometry() as Geometry,
-            );
-
-            map.getView().fit(geoloc.getAccuracyGeometry() as Polygon, {
-              duration: 250,
-              maxZoom: 15,
-            });
-          },
-          [map],
-        )}
+        onChange={(e: any) => {
+          const geoloc = e.target as OLGeoLoc;
+          console.log(geoloc);
+          geoStore.setGeoPos(
+            new Point(geoloc.getPosition() as Coordinate),
+            geoloc.getAccuracyGeometry() as Geometry,
+          );
+          map.getView().fit(geoloc.getAccuracyGeometry() as Polygon, {
+            duration: 250,
+            maxZoom: 15,
+          });
+        }}
       />
       <RLayerVector zIndex={10}>
         <RStyle.RStyle>
@@ -43,8 +36,8 @@ const Geoloc = () => {
         <RFeature geometry={geoStore.pos}></RFeature>
         <RFeature geometry={geoStore.accuracy}></RFeature>
       </RLayerVector>
-    </>
+    </RLayerVector>
   );
-};
+});
 
 export default Geoloc;
