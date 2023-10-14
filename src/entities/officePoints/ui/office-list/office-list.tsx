@@ -25,6 +25,7 @@ const OfficeList = observer((props: OfficeListProps) => {
     isOpenStore.setIsOpen(
       true,
       fromLonLat([office.longitude, office.latitude]),
+      office,
     );
   };
   if (isLoading) {

@@ -20,6 +20,7 @@ const PointBank: React.FC<PointProps> = observer(({ bank }) => {
         isOpenStore.setIsOpen(
           true,
           fromLonLat([bank.longitude, bank.latitude]),
+          bank,
         );
       }}
     >
