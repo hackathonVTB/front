@@ -21,18 +21,6 @@ const CardPopover = observer(({ close }: { close?: () => void }) => {
   };
 
   useEffect(() => {
-    if (navigator.geolocation && geoStore.geoSearch) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        geoStore.setGeoPos(new Point(fromLonLat([lng, lat])), undefined);
-      });
-    } else {
-      console.log('Geolocation is not supported by this browser.');
-    }
-  }, [navigator.geolocation, geoStore.geoSearch]);
-
-  useEffect(() => {
     (async () => {
       if (isOpenStore.cardsClick && geoStore.geoSearch) {
         const data = await buildRoute(
