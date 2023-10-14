@@ -12,14 +12,21 @@ import SideBarAtm from '@/widgets/sideBarAtm';
 import { observer } from 'mobx-react-lite';
 import { ServiceModal } from '@/entities/service';
 import { Point } from 'ol/geom';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, toLonLat } from 'ol/proj';
 import { useLocalGeoStore } from '@/entities/map/model/store';
+import useSuitOffices from '@/shared/hooks/useSuitOffices.ts';
+import useSuitAtms from '@/shared/hooks/useSuitoAtms.ts';
 
 const Map = observer(() => {
   const [rightSidebarIsOpen, setRightSidebarIsOpen] = useState(false);
   const [toogleIsOpen, setToggleIsOpen] = useState(false);
   const { tooglStore } = useTogleLocalStore();
   const { geoStore } = useLocalGeoStore();
+  const coord = toLonLat(geoStore.pos.getCoordinates());
+  if (isMobile) {
+    useSuitOffices([coord[0], coord[1]]);
+    useSuitAtms([coord[0], coord[1]]);
+  }
 
   useEffect(() => {
     if (navigator.geolocation) {
