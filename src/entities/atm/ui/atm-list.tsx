@@ -1,12 +1,13 @@
 import { classNames } from '@/shared';
 import styles from './atm-list.module.scss';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, toLonLat } from 'ol/proj';
 import { observer } from 'mobx-react-lite';
 import atmBankLogo from '@/shared/assets/atm-banks-logo.svg';
 import { useLocalAtmStore } from '../model/store';
 import useSuitAtms from '@/shared/hooks/useSuitoAtms';
 import { useLocalPointsStore } from '@/entities/officePoints/model';
 import { IAtms } from '@/shared/interface/atms/IAtms';
+import { useLocalGeoStore } from '@/entities/map/model/store';
 
 interface OfficeListProps {
   className?: string;
@@ -16,7 +17,9 @@ const AttmList = observer((props: OfficeListProps) => {
   const { className } = props;
   const { atmStore } = useLocalAtmStore();
   const { officesPointsStore } = useLocalPointsStore();
-  const { isLoading } = useSuitAtms([37.61556, 55.75222]);
+  const { geoStore } = useLocalGeoStore();
+  const coord = toLonLat(geoStore.pos.getCoordinates());
+  const { isLoading } = useSuitAtms([coord[0], coord[1]]);
 
   const onClickItem = (atm: IAtms) => {
     officesPointsStore.setView({
