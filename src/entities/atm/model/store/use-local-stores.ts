@@ -3,6 +3,6 @@ import { atmStore } from './atms.ts';
 
 const store = { atmStore };
 
-const useLocalStore = createStoresContext(store);
+const useLocalAtmStore = createStoresContext(store);
 
-export { useLocalStore };
+export { useLocalAtmStore };

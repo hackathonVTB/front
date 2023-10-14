@@ -36,25 +36,31 @@ const OfficeList = observer((props: OfficeListProps) => {
   return (
     <div className={classNames(styles.root, {}, [className])}>
       {officesPointsStore.offices.map((office) => {
-        const color = configLoadStat(office.load_rate);
+        const loaded_status = configLoadStat(office.load_rate);
         return (
           <div
             onClick={() => onClickItem(office)}
             key={office.id}
             className={styles.listItem}
           >
-            <img src={VTBLogo} />
-            <div className={styles.wrapperText}>
-              <span className={styles.textList}>{office.address}</span>
+            <div className={styles.card}>
+              <img src={VTBLogo} />
+              <div className={styles.wrapperText}>
+                <span className={styles.textList}>{office.address}</span>
+              </div>
             </div>
-            <div
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: '100%',
-                backgroundColor: color,
-              }}
-            />
+            <div>
+              <span className={styles.loader}>
+                Загруженность отделения:
+                <div className={styles.chips}>{loaded_status}</div>
+              </span>
+            </div>
+            <div>
+              <span className={styles.loader}>
+                Растояние до отделения:
+                <div className={styles.chips}>{office.distance} км</div>
+              </span>
+            </div>
           </div>
         );
       })}

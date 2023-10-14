@@ -67,7 +67,9 @@ const CardPopover = observer(({ close }: { close?: () => void }) => {
       </div>
       <div className={styles.wrapperAddres}>
         <div className={styles.chips}>
-          <span className={styles.time}>1 ч 23 мин · 11,6 км</span>
+          <span className={styles.time}>
+            {officeInfoStore.office?.distance} км
+          </span>
         </div>
         <div className={styles.chips}>
           <span className={styles.blackText}>
@@ -95,7 +97,7 @@ const CardPopover = observer(({ close }: { close?: () => void }) => {
           view="primary"
           onClick={onCheckRoad}
         >
-          Маршрут
+          <span className={styles.textBtn}>Маршрут</span>
         </Button>
       </div>
     </div>

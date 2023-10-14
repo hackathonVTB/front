@@ -2,7 +2,12 @@ import { ButtonHTMLAttributes, CSSProperties, type FC } from 'react';
 import styles from './button.module.scss';
 import { classNames } from '@/shared';
 
-export type ButtonView = 'primary' | 'secondary' | 'withBorder';
+export type ButtonView =
+  | 'primary'
+  | 'secondary'
+  | 'withBorder'
+  | 'toggleButton'
+  | 'outline';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -11,6 +16,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   withIcon?: boolean;
   width?: number;
   height?: number;
+  isActive?: boolean;
 }
 
 const Button: FC<ButtonProps> = (props) => {
@@ -23,17 +29,24 @@ const Button: FC<ButtonProps> = (props) => {
     withIcon = false,
     width,
     height,
+    isActive,
     ...otherProps
   } = props;
 
   const style: CSSProperties =
     width && height ? { width: `${width}px`, height: `${height}px` } : {};
 
-  const className = classNames(styles.root, {}, [
-    currentClassName,
-    styles[`root_${view}`],
-    withIcon ? styles['root_icon'] : '',
-  ]);
+  const className = classNames(
+    styles.root,
+    {
+      [styles.active]: isActive,
+    },
+    [
+      currentClassName,
+      styles[`root_${view}`],
+      withIcon ? styles['root_icon'] : '',
+    ],
+  );
 
   return (
     <button
@@ -43,7 +56,7 @@ const Button: FC<ButtonProps> = (props) => {
       {...otherProps}
       className={className}
     >
-      {children}
+      <div style={{ zIndex: 12, position: 'relative' }}> {children}</div>
     </button>
   );
 };
