@@ -17,6 +17,7 @@ module.exports = {
     ],
     'no-unused-vars': 'warn',
     'no-shadow': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
     'no-underscore-dangle': 'off',
     'max-len': [
       'error',

@@ -1,0 +1,10 @@
+.Overlay {
+    // background: var();TODO сделать полупрозрачный
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    cursor: pointer;
+    z-index: 0;
+}
