@@ -15,7 +15,7 @@ interface SecondProps {
 
 const Modal = observer((props: SecondProps) => {
   const { className } = props;
-  const { serviceSelecterStore } = useLocalStore();
+  const { serviceSelecterStore, objectForm } = useLocalStore();
   const { geoStore } = useLocalGeoStore();
   const { officesPointsStore } = useLocalPointsStore();
 
@@ -85,6 +85,7 @@ const Modal = observer((props: SecondProps) => {
           <Button
             onClick={() => {
               console.log(service.name);
+              objectForm.setServices(service);
               const coord = toLonLat(geoStore.pos.getCoordinates());
               serviceSelecterStore
                 .fetchAvailableOffices(

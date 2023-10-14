@@ -31,6 +31,11 @@ interface AvailableDays {
   status: string;
 }
 
+interface Resevation {
+  message: number;
+  status: string;
+}
+
 class ServiceSelecterService {
   static getAllCategories() {
     return apiClient.get<CategoryGetProps>('/categories');
@@ -80,6 +85,17 @@ class ServiceSelecterService {
         office_id: officeId,
         reservation_date: date,
       },
+    });
+  }
+
+  static addResevation(input: {
+    office_id: number;
+    reservation_date: string;
+    reservation_time: string;
+    service_id: number;
+  }) {
+    return apiClient.get<Resevation>('/add-reservation', {
+      params: input,
     });
   }
 }
