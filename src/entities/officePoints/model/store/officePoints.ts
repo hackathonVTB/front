@@ -9,7 +9,7 @@ class OfficesPointsStore {
   offices: IOfficesSide[] = [];
   view: RView = {
     center: fromLonLat([37.61556, 55.75222]),
-    zoom: 11,
+    zoom: 13,
   };
 
   constructor() {

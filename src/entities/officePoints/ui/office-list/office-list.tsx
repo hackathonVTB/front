@@ -28,6 +28,7 @@ const OfficeList = observer((props: OfficeListProps) => {
       office,
     );
   };
+
   if (isLoading) {
     <div>...isLoading</div>;
   }
