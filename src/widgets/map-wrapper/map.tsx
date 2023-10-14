@@ -10,14 +10,12 @@ import { IOfficesSide } from '@/shared/interface/OfficesSideBar/IOfficesSide';
 import PointBank from '@/entities/map/ui/point-bank';
 import { observer } from 'mobx-react-lite';
 import { useLocalPointsStore } from '@/entities/officePoints/model';
-import useOfficeService from '@/entities/officePoints/services/useOfficeService';
 import { geoStore } from '@/entities/map/model/store/geoObj';
 
 const MapView = observer(() => {
   const center = fromLonLat([37.61556, 55.75222]);
   const { extentStore, isOpenStore, officesPointsStore } =
     useLocalPointsStore();
-  useOfficeService(extentStore.extent || []);
 
   const onClose = () => {
     isOpenStore.setIsOpen(false, [], null);
