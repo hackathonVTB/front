@@ -1,13 +1,57 @@
 .root {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
 }
 
 .listItem {
+  padding: 16px;
   display: grid;
-  gap: 5px;
- grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr auto;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  .chips {
+    transition: all 0.3s ease-in-out;
+    padding: 5px 10px;
+    background-color: var(--chips-color);
+    border-radius: 5px;
+  
+  }
+
+  &:hover {
+    background-color: var(--chips-color);
+
+    .chips {
+      background-color: white;
+    }
+   
+  }
+
+  &:active {
+     background-color: var(--chips-color);
+
+     .chips {
+      background-color: white;
+    }
+    
+  }
+
+  &:first-child {
+    border-radius: 25px 25px 0;
+  }
+ 
+
+}
+
+
+
+.card {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+
 }
 
 .wrapperText {
@@ -18,4 +62,14 @@
 .textList {
   font: var(--font-m-demi)
 }
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font: var(--font-xs-demi)
+}
+
+
 

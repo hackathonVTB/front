@@ -1,11 +1,11 @@
 export const configLoadStat = (load_stat: number) => {
   if (load_stat > 0.6) {
-    return '#B8000E';
+    return 'высокая';
   }
 
   if (load_stat > 0.3 && load_stat < 0.6) {
-    return '#FFEC2E';
+    return 'средняя';
   }
 
-  return '#44944A';
+  return 'низкая';
 };
