@@ -2,11 +2,36 @@
     display: grid;
     grid-template-rows: auto 1fr;
     gap:  50px;
+    padding: 8px 16px;
     overflow: auto;
     max-height: 100%;
 }
 
 .headerText {
-    margin: 8px 16px;
     font: var(--font-m-demi)
+}
+
+.textTime {
+    font: var(--font-xs-demi)
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.gridTime {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+
+.chips {
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: var(--chips-color);
+    cursor: pointer;
 }
