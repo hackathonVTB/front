@@ -1,1 +1,1 @@
-export { useLocalPointsStore } from './use-local-stores.ts';
+export { useLocalPointsStore } from './use-local-stores';

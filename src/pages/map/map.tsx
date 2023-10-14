@@ -4,7 +4,7 @@ import { Navbar } from '@/widgets';
 import { Drawer } from '@/shared';
 import { isMobile } from 'react-device-detect';
 import { Sidebar } from '@/widgets/sidebar';
-import Menu from '@/widgets/menu';
+import SideBarOffice from '@/widgets/sideBarOffice';
 
 const Map = () => {
   return (
@@ -15,7 +15,7 @@ const Map = () => {
       leftSidebar={
         !isMobile ? (
           <Sidebar>
-            <Menu />
+            <SideBarOffice />
           </Sidebar>
         ) : undefined
       }
