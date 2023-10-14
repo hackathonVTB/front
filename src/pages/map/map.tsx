@@ -5,6 +5,7 @@ import { Drawer, QueueIcon } from '@/shared';
 import { isMobile } from 'react-device-detect';
 import { Sidebar } from '@/widgets/sidebar';
 import SideBarOffice from '@/widgets/sideBarOffice';
+import { useState } from 'react';
 
 const Map = () => {
   const [rightSidebarIsOpen, setRightSidebarIsOpen] = useState(false);
