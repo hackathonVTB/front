@@ -1,9 +1,13 @@
-import { classNames, HStack } from '@/shared';
+import { classNames, HStack, VStack } from '@/shared';
 import styles from './modal.module.scss';
-import { useEffect, useState } from 'react';
-import { useLocalStore } from '../../model/store/use-local-stores.ts';
+import { useEffect } from 'react';
+import { useLocalStore } from '@/entities/service/model';
+import { useLocalGeoStore } from '@/entities/map/model/store';
 import { observer } from 'mobx-react-lite';
 import { Loader } from '@/shared/ui/loader/loader.tsx';
+import Button from '@/shared/ui/button/button.tsx';
+import { useLocalPointsStore } from '@/entities/officePoints/model';
+import { toLonLat } from 'ol/proj';
 
 interface SecondProps {
   className?: string;
@@ -11,17 +15,13 @@ interface SecondProps {
 
 const Modal = observer((props: SecondProps) => {
   const { className } = props;
-  const [categoreId, setCategoreId] = useState(0);
   const { serviceSelecterStore } = useLocalStore();
+  const { geoStore } = useLocalGeoStore();
+  const { officesPointsStore } = useLocalPointsStore();
 
   useEffect(() => {
     serviceSelecterStore.fetchCategories();
   }, []);
-
-  useEffect(() => {
-    if (serviceSelecterStore.categories.length === 0) return;
-    serviceSelecterStore.fetchSubcategories(categoreId);
-  }, [categoreId]);
 
   if (
     serviceSelecterStore.categoriesIsLoading ||
@@ -45,7 +45,7 @@ const Modal = observer((props: SecondProps) => {
       <select
         className={styles.select}
         onChange={(e) => {
-          setCategoreId(+e.target.value);
+          serviceSelecterStore.fetchSubcategories(+e.target.value);
         }}
       >
         {serviceSelecterStore.categories.map((categore) => (
@@ -58,21 +58,52 @@ const Modal = observer((props: SecondProps) => {
           </option>
         ))}
       </select>
-      {!!categoreId && (
-        <select
-          className={styles.select}
-          onChange={(e) => console.log(e.target.value)}
-        >
-          {serviceSelecterStore.subcategories.map((subcategorie) => (
-            <option
-              key={subcategorie.id}
-              value={subcategorie.id}
-            >
-              {subcategorie.name}
-            </option>
-          ))}
-        </select>
-      )}
+      {!!serviceSelecterStore.subcategories &&
+        !!serviceSelecterStore.subcategories.length && (
+          <select
+            className={styles.select}
+            onChange={(e) =>
+              serviceSelecterStore.fetchServices(+e.target.value)
+            }
+          >
+            {serviceSelecterStore.subcategories.map((subcategorie) => (
+              <option
+                key={subcategorie.id}
+                value={subcategorie.id}
+              >
+                {subcategorie.name}
+              </option>
+            ))}
+          </select>
+        )}
+      <VStack
+        gap={'8'}
+        maxWidth
+        align={'start'}
+      >
+        {serviceSelecterStore.services.map((service) => (
+          <Button
+            onClick={() => {
+              console.log(service.name);
+              const coord = toLonLat(geoStore.pos.getCoordinates());
+              serviceSelecterStore
+                .fetchAvailableOffices(
+                  service.id.toString(),
+                  coord[0],
+                  coord[1],
+                )
+                .finally(() =>
+                  officesPointsStore.setOffices(
+                    serviceSelecterStore.availableOffices,
+                  ),
+                );
+            }}
+            key={service.id}
+          >
+            {service.name}
+          </Button>
+        ))}
+      </VStack>
     </div>
   );
 });
