@@ -2,6 +2,6 @@ import { officesStore } from './offices.ts';
 import { createStoresContext } from '@/shared';
 const store = { officesStore };
 
-const useLocalStore = createStoresContext(store);
+const useLocalOfficeStore = createStoresContext(store);
 
-export { useLocalStore };
+export { useLocalOfficeStore };

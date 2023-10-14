@@ -1,30 +1,28 @@
-import { IShortBank } from '@/entities/office/model/types/IBanks.ts';
+import { IShortBank } from '@/shared/interface/banks/IBanks';
 import { Extent } from 'ol/extent';
 import { Coordinate } from 'ol/coordinate';
+import { fromLonLat } from 'ol/proj';
 import { makeAutoObservable } from 'mobx';
+import { IOfficesSide } from '@/shared/interface/OfficesSideBar/IOfficesSide';
+import { RView } from 'node_modules/rlayers/RMap';
 
 class OfficesPointsStore {
-  offices: IShortBank[] = [
-    {
-      id: 1,
-      latitude: 0,
-      hasRamp: '',
-      longitude: 0,
-    },
-    {
-      id: 1,
-      hasRamp: '',
-      latitude: 0,
-      longitude: 0,
-    },
-  ];
+  offices: IOfficesSide[] = [];
+  view: RView = {
+    center: fromLonLat([37.61556, 55.75222]),
+    zoom: 11,
+  };
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setOffices(offInp: IShortBank[]) {
+  setOffices(offInp: IOfficesSide[]) {
     this.offices = offInp;
+  }
+
+  setView(view: RView) {
+    this.view = view;
   }
 }
 
