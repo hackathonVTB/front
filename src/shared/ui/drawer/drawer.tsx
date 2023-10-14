@@ -12,7 +12,7 @@ interface DrawerProps {
   lazy?: boolean;
 }
 
-const height = window.innerHeight - 100;
+const height = window.innerHeight;
 
 export const DrawerContent = memo((props: DrawerProps) => {
   const { Spring, Gesture } = useAnimationLibs();
@@ -49,7 +49,7 @@ export const DrawerContent = memo((props: DrawerProps) => {
       if (my < -70) cancel();
 
       if (last) {
-        if (my > height * 0.5 || (vy > 0.5 && dy > 0)) {
+        if (my > height * 0.7 || (vy > 0.5 && dy > 0)) {
           close();
         } else {
           openDrawer();
@@ -86,7 +86,7 @@ export const DrawerContent = memo((props: DrawerProps) => {
           className={cls.sheet}
           style={{
             display,
-            bottom: `calc(-100vh + ${height - 100}px)`,
+            bottom: `calc(-100vh + ${height - 300}px)`,
             y,
           }}
           {...bind()}
