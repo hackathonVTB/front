@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Atm } from '../types';
 import { AtmsService } from '@/entities/atm/model/services/api/api.ts';
-import { Extent } from 'ol/extent';
+import { Coordinate } from 'ol/coordinate';
 
 class AtmsStore {
   atms: Atm[] = [];
@@ -10,11 +10,11 @@ class AtmsStore {
     makeAutoObservable(this);
   }
 
-  async fetchAtms(input: Extent) {
+  async fetchAtms(point: Coordinate) {
     this.atmsLoading = true;
 
     try {
-      const data = await AtmsService.getAllOffices(input);
+      const data = await AtmsService.getAllOffices(point);
 
       runInAction(() => {
         this.atms = data.message.atms;

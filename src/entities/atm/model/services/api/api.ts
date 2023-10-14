@@ -1,6 +1,6 @@
 import { apiClient } from '@/shared/services/clients/clients.ts';
 import { Atm } from '@/entities/atm/model/types/atm-types.ts';
-import { Extent } from 'ol/extent';
+import { Coordinate } from 'ol/coordinate';
 
 interface OfficesServiceGetProps {
   message: { atms: Atm[] };
@@ -8,13 +8,11 @@ interface OfficesServiceGetProps {
 }
 
 class AtmsService {
-  static getAllOffices(input: Extent) {
-    return apiClient.get<OfficesServiceGetProps>('/atms-for-maps', {
+  static getAllOffices(input: Coordinate) {
+    return apiClient.get<OfficesServiceGetProps>('/get-suit-atm', {
       params: {
-        longitude_min: input[0],
-        latitude_min: input[1],
-        longitude_max: input[2],
-        latitude_max: input[3],
+        longitude: input[0],
+        latitude: input[1],
       },
     });
   }

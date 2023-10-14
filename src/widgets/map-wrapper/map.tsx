@@ -1,15 +1,12 @@
 import { RMap, ROSM, RLayerVector } from 'rlayers';
 import { fromLonLat } from 'ol/proj';
 import styles from './index.module.scss';
-
 import { useEffect } from 'react';
 import { createExtent } from '@/entities/map/model/utils/utils.ts';
 import { Popover } from '../../entities/map/ui/popover';
 import CardPopover from '../../entities/map/ui/card-popover';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
-
 import { IOfficesSide } from '@/shared/interface/OfficesSideBar/IOfficesSide';
-
 import PointBank from '@/entities/map/ui/point-bank';
 import { observer } from 'mobx-react-lite';
 import { useLocalStore as useAtmStore } from '@/entities/atm/model/store';
@@ -22,9 +19,8 @@ const MapView = observer(() => {
   const { atmStore } = useAtmStore();
 
   useEffect(() => {
-    if (!extentStore.extent) return;
-    atmStore.fetchAtms(extentStore.extent).then((data) => console.log(data));
-  }, [atmStore, extentStore.extent]);
+    atmStore.fetchAtms([37.61556, 55.75222]);
+  }, []);
 
   const onClose = () => {
     isOpenStore.setIsOpen(false, []);
