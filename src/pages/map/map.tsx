@@ -6,10 +6,14 @@ import { isMobile } from 'react-device-detect';
 import { Sidebar } from '@/widgets/sidebar';
 import { useState } from 'react';
 import SideBarOffice from '@/widgets/sideBarOffice';
+import { useTogleLocalStore } from '@/entities/toggle/module';
+import { Toogle } from '@/entities/toggle/module/types/ITogle';
+import SideBarAtm from '@/widgets/sideBarAtm';
+import { observer } from 'mobx-react-lite';
 
-const Map = () => {
+const Map = observer(() => {
   const [rightSidebarIsOpen, setRightSidebarIsOpen] = useState(false);
-  const [toggle, setToggle] = useState<'office' | 'atms'>('office');
+  const { tooglStore } = useTogleLocalStore();
 
   const rightSidebar = rightSidebarIsOpen ? (
     <Sidebar
@@ -28,7 +32,11 @@ const Map = () => {
       leftSidebar={
         !isMobile && (
           <Sidebar>
-            <SideBarOffice />
+            {tooglStore.toogle === Toogle.Office ? (
+              <SideBarOffice />
+            ) : (
+              <SideBarAtm />
+            )}
           </Sidebar>
         )
       }
@@ -42,16 +50,9 @@ const Map = () => {
           />
         )
       }
-      toggleTypeService={
-        !isMobile && (
-          <Toggle
-            toggle={toggle}
-            setToggle={setToggle}
-          />
-        )
-      }
+      toggleTypeService={!isMobile && <Toggle />}
     />
   );
-};
+});
 
 export default Map;

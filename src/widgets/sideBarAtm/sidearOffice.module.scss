@@ -1,0 +1,10 @@
+.root {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap:  50px;
+}
+
+.headerText {
+    margin: 8px 16px;
+    font: var(--font-m-demi)
+}
