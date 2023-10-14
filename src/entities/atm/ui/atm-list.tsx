@@ -41,7 +41,9 @@ const AttmList = observer((props: OfficeListProps) => {
             <div className={styles.card}>
               <img src={atmBankLogo} />
               <div className={styles.wrapperText}>
-                <span className={styles.textList}>{atm.address}</span>
+                <span className={styles.textList}>
+                  {atm.address ? atm.address : `Банкомат ВТБ ${atm.id}`}
+                </span>
               </div>
             </div>
           </div>
