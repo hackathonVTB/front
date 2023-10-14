@@ -3,6 +3,6 @@ import { createStoresContext } from '@/shared';
 
 const store = { ...stores };
 
-const useLocalStore = createStoresContext(store);
+const useLocalPointsStore = createStoresContext(store);
 
-export { useLocalStore };
+export { useLocalPointsStore };

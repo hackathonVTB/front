@@ -1,10 +1,10 @@
 import { $api } from '@/shared/api/api';
 import { Extent } from 'ol/extent';
-import { IShortBank } from '@/shared/interface/banks/IBanks';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useLocalPointsStore } from '../model';
 
-const useOfficeService = (extent: Extent): { offices: IShortBank[] } => {
-  const [offices, setOffice] = useState<IShortBank[]>([]);
+const useOfficeService = (extent: Extent) => {
+  const { officesPointsStore } = useLocalPointsStore();
 
   useEffect(() => {
     (async () => {
@@ -16,12 +16,10 @@ const useOfficeService = (extent: Extent): { offices: IShortBank[] } => {
           latitude_max: extent[3],
         };
         const data = await $api.get('/offices-for-maps', { params: input });
-        if (data.data.message) setOffice(data.data.message);
+        if (data.data.message) officesPointsStore.setOffices(data.data.message);
       }
     })();
   }, [extent]);
-
-  return { offices };
 };
 
 export default useOfficeService;
