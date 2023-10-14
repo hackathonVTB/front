@@ -1,15 +1,15 @@
 import { classNames } from '@/shared';
-import styles from './index.module.scss';
-import { First } from '@/pages/not-found-page/ui/components/first/first.tsx';
+import styles from './service.module.scss';
+import { First } from '@/entities/service/ui/first/first.tsx';
 import { useState } from 'react';
-import { Second } from '@/pages/not-found-page/ui/components/second/second.tsx';
+import { Second } from '@/entities/service/ui/second/second.tsx';
 import { observer } from 'mobx-react-lite';
 
 interface IndexProps {
   className?: string;
 }
 
-const Index = observer((props: IndexProps) => {
+const ServiceModal = observer((props: IndexProps) => {
   const { className } = props;
   const [showSecond, setShowSecond] = useState(false);
 
@@ -21,4 +21,4 @@ const Index = observer((props: IndexProps) => {
   );
 });
 
-export { Index };
+export { ServiceModal };

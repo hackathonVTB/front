@@ -1,7 +1,7 @@
 import { classNames } from '@/shared';
 import styles from './second.module.scss';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useLocalStore } from '../../../model/store/use-local-stores.ts';
+import { useLocalStore } from '../../model/store/use-local-stores.ts';
 import { observer } from 'mobx-react-lite';
 
 interface SecondProps {

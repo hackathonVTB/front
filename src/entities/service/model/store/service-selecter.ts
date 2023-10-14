@@ -1,10 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { ServiceSelecterService } from '@/pages/not-found-page/model/services/api/api.ts';
+import { ServiceSelecterService } from '@/entities/service/model/services/api/api.ts';
 import {
   Category,
   Subcategories,
-} from '@/pages/not-found-page/model/types/types.ts';
+} from '@/entities/service/model/types/types.ts';
 
 class ServiceSelecterStore {
   categories: Category[] = [];
