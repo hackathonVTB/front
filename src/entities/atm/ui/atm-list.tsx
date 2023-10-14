@@ -1,9 +1,12 @@
 import { classNames } from '@/shared';
 import styles from './atm-list.module.scss';
+import { fromLonLat } from 'ol/proj';
 import { observer } from 'mobx-react-lite';
 import atmBankLogo from '@/shared/assets/atm-banks-logo.svg';
 import { useLocalAtmStore } from '../model/store';
 import useSuitAtms from '@/shared/hooks/useSuitoAtms';
+import { useLocalPointsStore } from '@/entities/officePoints/model';
+import { IAtms } from '@/shared/interface/atms/IAtms';
 
 interface OfficeListProps {
   className?: string;
@@ -12,19 +15,15 @@ interface OfficeListProps {
 const AttmList = observer((props: OfficeListProps) => {
   const { className } = props;
   const { atmStore } = useLocalAtmStore();
+  const { officesPointsStore } = useLocalPointsStore();
   const { isLoading } = useSuitAtms([37.61556, 55.75222]);
 
-  // const onClickItem = (office: IOfficesSide) => {
-  //   officesPointsStore.setView({
-  //     center: fromLonLat([office.longitude, office.latitude]),
-  //     zoom: 17,
-  //   });
-  //   isOpenStore.setIsOpen(
-  //     true,
-  //     fromLonLat([office.longitude, office.latitude]),
-  //     office,
-  //   );
-  // };
+  const onClickItem = (atm: IAtms) => {
+    officesPointsStore.setView({
+      center: fromLonLat([atm.longitude, atm.latitude]),
+      zoom: 17,
+    });
+  };
 
   if (isLoading) {
     <div>...isLoading</div>;
@@ -36,6 +35,7 @@ const AttmList = observer((props: OfficeListProps) => {
         return (
           <div
             key={atm.id}
+            onClick={() => onClickItem(atm)}
             className={styles.listItem}
           >
             <div className={styles.card}>
@@ -45,6 +45,12 @@ const AttmList = observer((props: OfficeListProps) => {
                   {atm.address ? atm.address : `Банкомат ВТБ ${atm.id}`}
                 </span>
               </div>
+            </div>
+            <div>
+              <span className={styles.loader}>
+                Растояние до банкомата:
+                <div className={styles.chips}>{atm.distance} км</div>
+              </span>
             </div>
           </div>
         );
