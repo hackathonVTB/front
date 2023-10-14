@@ -2,3 +2,14 @@
   width: 100vw;
   height: calc(100vh - var(--navbar-height));
 }
+
+.leftSidebar {
+  position: absolute;
+  z-index: 10;
+  border-radius: 24px;
+  padding: 8px;
+  margin: 16px;
+  background: var(--background-color);
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--navbar-height) - 32px);
+}
