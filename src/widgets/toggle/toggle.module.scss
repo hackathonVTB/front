@@ -8,3 +8,27 @@
 .text {
   font: var(--font-xs-demi)
 }
+
+.active {
+  color: var(--cian);
+}
+
+.back {
+  z-index: 11;
+  position: absolute;
+  width: 120px;
+  height: 40px;
+  border-radius: 60px;
+  background: var(--background-color);
+  transition: margin 0.3s ease-in-out;
+}
+
+.btnLeft {
+  margin-right: 144px;
+}
+
+.btnRight {
+  margin-left: 144px;
+}
+
+

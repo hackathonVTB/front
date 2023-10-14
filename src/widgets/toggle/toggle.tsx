@@ -22,23 +22,47 @@ const Toggle = observer((props: ToggleProps) => {
         align={'center'}
       >
         <Button
-          isActive={tooglStore.toogle === Toogle.Office}
+          className={classNames(
+            '',
+            {
+              [styles.active]: tooglStore.toogle === Toogle.Office,
+            },
+            [],
+          )}
+          // isActive={tooglStore.toogle === Toogle.Office}
           onClick={() => tooglStore.setToogle(Toogle.Office)}
-          view={'toggleButton'}
+          view={'outline'}
           width={140}
           height={44}
         >
           <span className={styles.text}>Отделения</span>
         </Button>
         <Button
-          isActive={tooglStore.toogle === Toogle.Atm}
+          className={classNames(
+            '',
+            {
+              [styles.active]: tooglStore.toogle === Toogle.Atm,
+            },
+            [],
+          )}
+          // isActive={tooglStore.toogle === Toogle.Atm}
           onClick={() => tooglStore.setToogle(Toogle.Atm)}
-          view={'toggleButton'}
+          view={'outline'}
           width={140}
           height={44}
         >
           <span className={styles.text}>Банкоматы</span>
         </Button>
+        <div
+          className={classNames(
+            styles.back,
+            {
+              [styles.btnLeft]: tooglStore.toogle === Toogle.Office,
+              [styles.btnRight]: tooglStore.toogle === Toogle.Atm,
+            },
+            [],
+          )}
+        ></div>
       </HStack>
     </div>
   );

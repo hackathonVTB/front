@@ -6,7 +6,8 @@ export type ButtonView =
   | 'primary'
   | 'secondary'
   | 'withBorder'
-  | 'toggleButton';
+  | 'toggleButton'
+  | 'outline';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -55,7 +56,7 @@ const Button: FC<ButtonProps> = (props) => {
       {...otherProps}
       className={className}
     >
-      {children}
+      <div style={{ zIndex: 12, position: 'relative' }}> {children}</div>
     </button>
   );
 };

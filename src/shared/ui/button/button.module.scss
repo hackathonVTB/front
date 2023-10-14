@@ -89,6 +89,12 @@
   }
 }
 
+.root_outline {
+  border-radius: 60px;
+  background: var(--cian);
+  color: #FFF;
+}
+
 .active {
   background: var(--background-color);
   color: var(--cian);
