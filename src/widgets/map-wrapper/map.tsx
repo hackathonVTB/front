@@ -31,7 +31,7 @@ const MapView = observer(() => {
     <RMap
       className={styles.map}
       view={[officesPointsStore.view, officesPointsStore.setView]}
-      initial={{ center: center, zoom: 17 }}
+      initial={{ center: center, zoom: 10 }}
       noDefaultControls
       onMoveEnd={(e: MapBrowserEvent<UIEvent>) => {
         extentStore.setExtent(createExtent(e));
@@ -41,12 +41,20 @@ const MapView = observer(() => {
       {tooglStore.toogle === Toogle.Office ? (
         <RLayerVector zIndex={10}>
           {officesPointsStore.offices?.map((bank: IOfficesSide) => (
-            <PointBank bank={bank} />
+            <PointBank
+              key={bank.id}
+              bank={bank}
+            />
           ))}
         </RLayerVector>
       ) : (
         <RLayerVector zIndex={10}>
-          {atmStore.atms?.map((atm) => <PointAtm atm={atm} />)}
+          {atmStore.atms?.map((atm) => (
+            <PointAtm
+              key={atm.id}
+              atm={atm}
+            />
+          ))}
         </RLayerVector>
       )}
 

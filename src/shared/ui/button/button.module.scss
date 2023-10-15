@@ -67,6 +67,21 @@
 .root_withBorder {
   border-radius: 13px;
   border: 1px solid var(--cian);
+  background: var(--background-color);
+
+  @media (any-hover: hover) {
+    &:hover {
+      &:not(:disabled) {
+        background: var(--button-hovered);
+      }
+    }
+  }
+
+  &:active {
+    &:not(:disabled) {
+      background: var(--button-hovered);
+    }
+  }
 }
 
 .root_toggleButton {
