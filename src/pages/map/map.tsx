@@ -23,6 +23,7 @@ const Map = observer(() => {
   const { tooglStore } = useTogleLocalStore();
   const { geoStore } = useLocalGeoStore();
   const coord = toLonLat(geoStore.pos.getCoordinates());
+
   if (isMobile) {
     useSuitOffices([coord[0], coord[1]]);
     useSuitAtms([coord[0], coord[1]]);
@@ -30,7 +31,6 @@ const Map = observer(() => {
 
   useEffect(() => {
     if (navigator.geolocation) {
-      console.log('Geolocation');
       navigator.geolocation.getCurrentPosition(function (position) {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
@@ -96,13 +96,15 @@ const Map = observer(() => {
           )}
         </Sidebar>
       }
-      rightSidebar={!isMobile ? rightSidebar : undefined}
+      rightSidebar={tooglStore.toogle === Toogle.Office && rightSidebar}
       rightDownButton={
-        <img
-          src={QueueIcon}
-          alt={'QueueIcon'}
-          onClick={() => setRightSidebarIsOpen(true)}
-        />
+        tooglStore.toogle === Toogle.Office && (
+          <img
+            src={QueueIcon}
+            alt={'QueueIcon'}
+            onClick={() => setRightSidebarIsOpen(true)}
+          />
+        )
       }
       toggleTypeService={<Toggle />}
     />

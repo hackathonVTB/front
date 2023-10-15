@@ -1,4 +1,4 @@
-import { classNames, HStack, VStack } from '@/shared';
+import { classNames, HStack, Text, VStack } from '@/shared';
 import styles from './modal.module.scss';
 import { useEffect } from 'react';
 import { useLocalStore } from '@/entities/service/model';
@@ -54,7 +54,10 @@ const Modal = observer((props: SecondProps) => {
             key={categore.id}
             value={categore.id}
           >
-            {categore.name}
+            <Text
+              variant={'invert'}
+              text={categore.name}
+            />
           </option>
         ))}
       </select>
@@ -85,7 +88,7 @@ const Modal = observer((props: SecondProps) => {
         {serviceSelecterStore.services.map((service) => (
           <Button
             width={320}
-            height={40}
+            height={48}
             onClick={() => {
               objectForm.setServices(service);
               const coord = toLonLat(geoStore.pos.getCoordinates());
@@ -103,7 +106,15 @@ const Modal = observer((props: SecondProps) => {
             }}
             key={service.id}
           >
-            <HStack justify={'start'}>{service.name}</HStack>
+
+            <HStack justify={'start'}>
+              <Text
+                variant={'invert'}
+                text={service.name}
+                bold={true}
+              />
+            </HStack>
+
           </Button>
         ))}
       </VStack>

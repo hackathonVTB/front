@@ -5,3 +5,4 @@ export * from './overlay';
 export * from './drawer';
 export * from './button';
 export * from './loader';
+export * from './text';

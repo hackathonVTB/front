@@ -24,7 +24,7 @@ const OfficeList = observer((props: OfficeListProps) => {
   const onClickItem = (office: IOfficesSide) => {
     officesPointsStore.setView({
       center: fromLonLat([office.longitude, office.latitude]),
-      zoom: 17,
+      zoom: 10,
     });
     isOpenStore.setIsOpen(
       true,
