@@ -106,6 +106,7 @@ const Modal = observer((props: SecondProps) => {
             }}
             key={service.id}
           >
+
             <HStack justify={'start'}>
               <Text
                 variant={'invert'}
@@ -113,6 +114,7 @@ const Modal = observer((props: SecondProps) => {
                 bold={true}
               />
             </HStack>
+
           </Button>
         ))}
       </VStack>

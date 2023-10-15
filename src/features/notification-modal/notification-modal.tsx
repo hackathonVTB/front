@@ -8,6 +8,7 @@ import { useLocalStore } from '@/entities/service/model';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
+
 interface NotificationModalProps {
   className?: string;
   isOpen: boolean;
@@ -34,7 +35,6 @@ const NotificationModal = (props: NotificationModalProps) => {
               <Text text={'Хотите получить напоминание?'} />
             </VStack>
           )}
-
           {!addNotification && (
             <HStack
               maxWidth
@@ -68,6 +68,7 @@ const NotificationModal = (props: NotificationModalProps) => {
           )}
           {addNotification && (
             <>
+
               <PhoneInput
                 country={'ru'}
                 value={phone}
